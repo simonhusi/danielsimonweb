@@ -698,6 +698,88 @@ const IMAGICORE_ARTIST_NAMES = [
   "Burai Kriszti\u00e1n"
 ];
 
+const initCountUpMetrics = () => {
+  const counters = Array.from(document.querySelectorAll('[data-counter-target]'));
+  if (counters.length === 0) {
+    return;
+  }
+
+  const formatCount = (value) => {
+    return Math.floor(value).toLocaleString('hu-HU');
+  };
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const animateCounter = (el) => {
+    if (!el || el.dataset.counterStarted === 'true') {
+      return;
+    }
+    el.dataset.counterStarted = 'true';
+
+    const rampTarget = Number(el.getAttribute('data-counter-start')) || 0;
+    const finalTarget = Number(el.getAttribute('data-counter-target')) || rampTarget;
+    const totalDuration = prefersReducedMotion ? 0 : Number(el.getAttribute('data-counter-duration')) || 120000;
+    const rampDuration = prefersReducedMotion ? 0 : Number(el.getAttribute('data-counter-ramp')) || 2200;
+
+    if (totalDuration <= 0 || finalTarget <= 0) {
+      el.textContent = formatCount(finalTarget);
+      return;
+    }
+
+    const slowDuration = Math.max(1, totalDuration - rampDuration);
+    const startedAt = performance.now();
+
+    const tick = (now) => {
+      const elapsed = now - startedAt;
+      let value = 0;
+
+      if (elapsed <= rampDuration) {
+        const rampProgress = Math.min(1, elapsed / rampDuration);
+        const rampEase = 1 - Math.pow(1 - rampProgress, 4);
+        value = rampTarget * rampEase;
+      } else {
+        const slowProgress = Math.min(1, (elapsed - rampDuration) / slowDuration);
+        const slowEase = 1 - Math.pow(1 - slowProgress, 1.6);
+        value = rampTarget + (finalTarget - rampTarget) * slowEase;
+      }
+
+      el.textContent = formatCount(value);
+
+      if (elapsed < totalDuration) {
+        window.requestAnimationFrame(tick);
+      } else {
+        el.textContent = formatCount(finalTarget);
+      }
+    };
+
+    window.requestAnimationFrame(tick);
+  };
+
+  if (!('IntersectionObserver' in window)) {
+    counters.forEach(animateCounter);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+      animateCounter(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+
+  counters.forEach((counter) => {
+    const rect = counter.getBoundingClientRect();
+    const alreadyVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    if (alreadyVisible) {
+      animateCounter(counter);
+      return;
+    }
+    observer.observe(counter);
+  });
+};
 const initImagicoreArtistSlot = () => {
   const prevCleanup = window.__imagicoreArtistSlotCleanup;
   if (typeof prevCleanup === "function") {
@@ -2302,6 +2384,7 @@ initPageDynamicEffects();
     initImagicoreForm();
     initImagicoreShowreelAudio();
     initImagicoreStories();
+    initCountUpMetrics();
     initImagicoreArtistSlot();
     initImagicorePressMentions();
     initPageDynamicEffects();
@@ -2565,6 +2648,10 @@ initPageDynamicEffects();
   setPageReady();
   refreshBasicUi(window.location.href);
 })();
+
+
+
+
 
 
 

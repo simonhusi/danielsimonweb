@@ -563,14 +563,14 @@ footer {
 
 .layer-a {
   inset: -8% 38% 46% -6%;
-  background-image: linear-gradient(0deg, #0000008f, #0000008f), url("/assets/images/imagicore/gallery/94a114_2ff07d55d0424ab58f4cf6c6ca9dcdda~mv2.jpg");
+  background-image: linear-gradient(0deg, #0000008f, #0000008f), url("/assets/images/imagicore/gallery/future.webp");
   filter: blur(8px);
   opacity: 0.7;
 }
 
 .layer-b {
   inset: 42% -5% -18% 56%;
-  background-image: linear-gradient(0deg, #00000085, #00000085), url("/assets/images/imagicore/gallery/94a114_a546f343331b42c1b04fbec88f89f463~mv2.jpg");
+  background-image: linear-gradient(0deg, #00000085, #00000085), url("/assets/images/imagicore/gallery/future.webp");
   filter: blur(10px);
   opacity: 0.65;
 }
@@ -5872,11 +5872,11 @@ body.story-modal-open {
 }
 
 .page-imagicore .layer-a {
-  background-image: linear-gradient(0deg, rgba(5, 11, 22, 0.68), rgba(5, 11, 22, 0.68)), url("/assets/images/imagicore/gallery/94a114_2ff07d55d0424ab58f4cf6c6ca9dcdda~mv2.jpg");
+  background-image: linear-gradient(0deg, rgba(5, 11, 22, 0.68), rgba(5, 11, 22, 0.68)), url("/assets/images/imagicore/gallery/future.webp");
 }
 
 .page-imagicore .layer-b {
-  background-image: linear-gradient(0deg, rgba(5, 11, 22, 0.64), rgba(5, 11, 22, 0.64)), url("/assets/images/imagicore/gallery/94a114_a546f343331b42c1b04fbec88f89f463~mv2.jpg");
+  background-image: linear-gradient(0deg, rgba(5, 11, 22, 0.64), rgba(5, 11, 22, 0.64)), url("/assets/images/imagicore/gallery/future.webp");
 }
 
 .page-imagicore .btn {
@@ -7085,4 +7085,326 @@ body.story-modal-open {
 .page-imagicore .selected-work-card--overlay .selected-work-meta li,
 .page-imagicore .selected-work-card--overlay .selected-work-meta strong {
   text-shadow: 0 3px 18px rgba(0, 0, 0, 0.66), 0 1px 5px rgba(0, 0, 0, 0.44);
+}
+
+/* ImagiCORE proof counter */
+.page-imagicore .proof-metric-counter strong {
+  font-family: "SFMono-Regular", "Roboto Mono", "IBM Plex Mono", "Fira Code", Consolas, monospace;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.04em;
+}
+
+.page-imagicore .proof-metric-counter span {
+  text-transform: lowercase;
+}
+
+
+/* ImagiCORE proof counter font override */
+.page-imagicore .proof-metric-counter strong {
+  font-family: "IBM Plex Mono", "Roboto Mono", "SFMono-Regular", "Fira Code", Consolas, monospace;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.045em;
+}
+
+/* ImagiCORE content tweaks */
+.page-imagicore .proof-metric-counter strong {
+  color: #7fb3ff;
+}
+
+.page-imagicore .selected-work-title-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.page-imagicore .selected-work-title-wrap h2 {
+  margin: 0;
+}
+
+.page-imagicore .selected-work-cta {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .page-imagicore .selected-work-title-wrap {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ImagiCORE proof future image */
+.page-imagicore .proof-grid-future {
+  position: relative;
+  grid-template-columns: minmax(300px, 0.88fr) minmax(360px, 1.12fr);
+  gap: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(119, 190, 242, 0.12);
+  background: linear-gradient(180deg, rgba(12, 24, 46, 0.76) 0%, rgba(10, 20, 38, 0.7) 100%);
+}
+
+.page-imagicore .proof-grid-future::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10, 20, 38, 1) 0%, rgba(10, 20, 38, 0.96) 28%, rgba(10, 20, 38, 0.8) 42%, rgba(10, 20, 38, 0.32) 58%, rgba(10, 20, 38, 0.08) 72%, rgba(10, 20, 38, 0) 100%),
+    linear-gradient(180deg, rgba(10, 20, 38, 0.18) 0%, rgba(10, 20, 38, 0.46) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.page-imagicore .proof-grid-future .proof-metrics {
+  position: relative;
+  z-index: 3;
+  margin: 1rem 0 1rem 1rem;
+  min-height: 340px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(10, 20, 38, 0.84) 0%, rgba(10, 20, 38, 0.7) 100%);
+  border: 1px solid rgba(119, 190, 242, 0.12);
+  box-shadow: 0 18px 40px rgba(4, 8, 15, 0.16);
+}
+
+.page-imagicore .proof-future-stage {
+  position: relative;
+  min-height: 360px;
+}
+
+.page-imagicore .proof-future-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  display: block;
+  filter: saturate(0.96) contrast(1.02);
+}
+
+@media (max-width: 900px) {
+  .page-imagicore .proof-grid-future {
+    grid-template-columns: 1fr;
+  }
+
+  .page-imagicore .proof-grid-future::before {
+    background:
+      linear-gradient(180deg, rgba(10, 20, 38, 0.94) 0%, rgba(10, 20, 38, 0.72) 34%, rgba(10, 20, 38, 0.32) 60%, rgba(10, 20, 38, 0.08) 100%),
+      linear-gradient(90deg, rgba(10, 20, 38, 0.6) 0%, rgba(10, 20, 38, 0.18) 100%);
+  }
+
+  .page-imagicore .proof-grid-future .proof-metrics {
+    margin: 1rem;
+  }
+
+  .page-imagicore .proof-future-stage {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-imagicore .proof-grid-future {
+    border-radius: 20px;
+  }
+
+  .page-imagicore .proof-grid-future .proof-metrics {
+    min-height: auto;
+    margin: 0.8rem;
+  }
+
+  .page-imagicore .proof-future-stage {
+    min-height: 240px;
+  }
+}
+
+/* ImagiCORE proof future image framing */
+.page-imagicore .proof-future-stage {
+  min-height: 390px;
+}
+
+.page-imagicore .proof-future-stage img {
+  width: 112%;
+  max-width: none;
+  right: -3%;
+  left: auto;
+  object-fit: cover;
+  object-position: 78% 18%;
+}
+
+@media (max-width: 900px) {
+  .page-imagicore .proof-future-stage {
+    min-height: 330px;
+  }
+
+  .page-imagicore .proof-future-stage img {
+    width: 108%;
+    right: -2%;
+    object-position: 72% 20%;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-imagicore .proof-future-stage {
+    min-height: 260px;
+  }
+
+  .page-imagicore .proof-future-stage img {
+    width: 112%;
+    right: -5%;
+    object-position: 70% 18%;
+  }
+}
+
+/* ImagiCORE proof highlight metrics */
+.page-imagicore .proof-metric-highlight strong {
+  color: #f4f8ff;
+}
+
+.page-imagicore .proof-metric-accent {
+  color: #7fb3ff;
+}
+
+
+
+
+/* ImagiCORE hero single background layer */
+.page-imagicore .layer-a {
+  inset: 0;
+  background-image: linear-gradient(0deg, rgba(5, 11, 22, 0.66), rgba(5, 11, 22, 0.66)), url("/assets/images/imagicore/gallery/future.webp");
+  background-size: cover;
+  background-position: center center;
+  filter: blur(10px);
+  transform: scale(1.06);
+}
+
+.page-imagicore .layer-b {
+  display: none;
+}
+
+/* ImagiCORE hero logo protection */
+.page-imagicore .hero-logo-wrap,
+.page-imagicore .hero-logo-wrap * {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* ImagiCORE editorial contact */
+.page-imagicore .imagicore-contact-editorial-card {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.92fr) minmax(260px, 0.78fr);
+  gap: 2rem;
+  align-items: end;
+  padding: 1.4rem 0 0;
+}
+
+.page-imagicore .imagicore-contact-copy {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  max-width: 34rem;
+  padding: 0 0 1.2rem;
+}
+
+.page-imagicore .imagicore-contact-label {
+  margin: 0;
+  color: #9fc8ff;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.page-imagicore .imagicore-contact-copy h3 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 0.96;
+}
+
+.page-imagicore .imagicore-contact-lead {
+  margin: 0;
+  max-width: 28ch;
+  color: #d7e1f4;
+  line-height: 1.6;
+}
+
+.page-imagicore .imagicore-contact-lines {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.page-imagicore .imagicore-contact-lines a,
+.page-imagicore .imagicore-contact-lines span {
+  color: #f4f8ff;
+  font-size: 1.06rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.page-imagicore .imagicore-contact-button {
+  justify-self: start;
+  margin-top: 0.25rem;
+}
+
+.page-imagicore .imagicore-contact-portrait-wrap {
+  position: relative;
+  min-height: 420px;
+}
+
+.page-imagicore .imagicore-contact-portrait-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.page-imagicore .imagicore-contact-portrait-stage img {
+  width: min(100%, 420px);
+  max-width: none;
+  object-fit: contain;
+  object-position: center bottom;
+  display: block;
+  filter: brightness(1.02);
+}
+
+.page-imagicore .imagicore-contact-portrait-fade {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 34%;
+  background: linear-gradient(180deg, rgba(7, 12, 22, 0) 0%, rgba(7, 12, 22, 0.92) 100%);
+}
+
+@media (max-width: 900px) {
+  .page-imagicore .imagicore-contact-editorial-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .page-imagicore .imagicore-contact-portrait-wrap {
+    min-height: 360px;
+  }
+
+  .page-imagicore .imagicore-contact-copy {
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-imagicore .imagicore-contact-copy h3 {
+    font-size: 1.8rem;
+  }
+
+  .page-imagicore .imagicore-contact-lines a,
+  .page-imagicore .imagicore-contact-lines span {
+    font-size: 1rem;
+  }
+
+  .page-imagicore .imagicore-contact-portrait-wrap {
+    min-height: 300px;
+  }
 }
