@@ -1679,6 +1679,28 @@ initPageDynamicEffects();
     initPageDynamicEffects();
   };
 
+  const getStylesheetSet = (doc) => {
+    const baseUrl = window.location.origin;
+    return Array.from(doc.querySelectorAll('head link[rel="stylesheet"][href]'))
+      .map((link) => {
+        try {
+          return new URL(link.getAttribute("href"), baseUrl).href;
+        } catch {
+          return "";
+        }
+      })
+      .filter(Boolean);
+  };
+
+  const hasSameStylesheetSet = (nextDoc) => {
+    const currentSet = getStylesheetSet(document);
+    const nextSet = getStylesheetSet(nextDoc);
+    if (currentSet.length !== nextSet.length) {
+      return false;
+    }
+    return currentSet.every((href, index) => href === nextSet[index]);
+  };
+
   const isManagedNavLink = (anchor, event) => {
     if (!anchor || !anchor.href || !nav) {
       return false;
@@ -1734,6 +1756,12 @@ initPageDynamicEffects();
       const html = await res.text();
       const parser = new DOMParser();
       const nextDoc = parser.parseFromString(html, "text/html");
+
+      if (!hasSameStylesheetSet(nextDoc)) {
+        window.location.href = targetUrl;
+        return;
+      }
+
       const nextMain = nextDoc.querySelector("main");
       const currentMain = document.querySelector("main");
 
