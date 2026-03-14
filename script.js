@@ -1,4 +1,4 @@
-const pageParams = new URLSearchParams(window.location.search);
+﻿const pageParams = new URLSearchParams(window.location.search);
 if (pageParams.get("embed") === "1") {
   document.documentElement.classList.add("embed-mode");
   if (document.body) {
@@ -561,7 +561,7 @@ const initImagicoreForm = () => {
 };
 
 const normalizeBtsSrc = (src) => {
-  const btsDir = "assets/images/imagicore/bts/";
+  const btsDir = "/assets/images/imagicore/bts/";
   if (!src) {
     return "";
   }
@@ -574,7 +574,7 @@ const normalizeBtsSrc = (src) => {
     return cleaned;
   }
   if (cleaned.startsWith("assets/")) {
-    return cleaned;
+    return `/${cleaned}`;
   }
   return `${btsDir}${cleaned.split("/").pop()}`;
 };
@@ -593,12 +593,8 @@ const getExistingBtsItems = (track) => {
 };
 
 const loadBtsItems = async (fallbackItems = []) => {
-  if (Array.isArray(fallbackItems) && fallbackItems.length > 0) {
-    return fallbackItems;
-  }
-
   try {
-    const res = await fetch("assets/data/bts-gallery.json", { cache: "no-store" });
+    const res = await fetch("/assets/data/bts-gallery.json", { cache: "no-store" });
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
@@ -609,10 +605,392 @@ const loadBtsItems = async (fallbackItems = []) => {
     // fallback below
   }
 
-  return Array.from({ length: 9 }, (_, i) => ({
-    src: "assets/images/imagicore/bts/" + String(9 - i) + ".webp",
-    alt: "BTS - " + String(9 - i)
+  if (Array.isArray(fallbackItems) && fallbackItems.length > 0) {
+    return fallbackItems;
+  }
+
+  return Array.from({ length: 14 }, (_, i) => ({
+    src: "/assets/images/imagicore/bts/" + String(14 - i) + ".webp",
+    alt: "ImagiCORE sztori"
   }));
+};
+
+const IMAGICORE_ARTIST_NAMES = [
+  "Szirota Jennifer",
+  "Moby Dick",
+  "BLR",
+  "Tar\u00e1ny Tam\u00e1s",
+  "Zolt\u00e1n Erika",
+  "Audiopoeta",
+  "Charlie",
+  "Jolly",
+  "TPX",
+  "Keresztes Ildik\u00f3",
+  "BALKAN FANATIK",
+  "Siska",
+  "The Griffins",
+  "New Level Empire",
+  "Krisz Rudi",
+  "SuperStereo",
+  "Curtis",
+  "Br\u00e9da Bia",
+  "Szekeres Andris",
+  "Haizok Melinda",
+  "Kodak",
+  "Hor\u00e1nyi Juli",
+  "B\u00f3di Csabi",
+  "AK26",
+  "Amanna",
+  "Kozs\u00f3",
+  "Mak\u00f3 \u00c9vi",
+  "P\u00e9terfy Bori",
+  "Sterbinszky",
+  "P\u00e1sztor Anna",
+  "DRASTIC TIMES",
+  "De\u00e1k Zola",
+  "T.Danny",
+  "Andreas Meck",
+  "Kir\u00e1ly Viktor",
+  "Rusz\u00f3 Tibi",
+  "Giovanni",
+  "MENFIS",
+  "No Midi",
+  "Tak\u00e1ts Tam\u00e1s",
+  "Deniz",
+  "Szak\u00e1cs Gerg\u0151",
+  "Republic",
+  "Kis Gr\u00f3fo",
+  "Baricz Gerg\u0151",
+  "F\u00d6LDALATTI MOZGALOM",
+  "ZANZIBAR",
+  "MC Veeto",
+  "G\u0151cze B\u00e1lint",
+  "C-z\u00e1r",
+  "George Shilling",
+  "Spigiboy",
+  "Z. Kiss Zal\u00e1n",
+  "TKYD",
+  "FankaDeli",
+  "Pit",
+  "Szuper\u00e1k Barbie",
+  "CIMPA",
+  "D\u00c9",
+  "Animal Cannibals",
+  "Boros Csaba",
+  "T\u00f3th T\u00fcndi",
+  "KRECK",
+  "K\u00f6rmendi Anita (Enita)",
+  "BeatKOHO",
+  "Juh\u00e1sz Zolt\u00e1n",
+  "Marcee",
+  "Angel",
+  "Nagy Fer\u00f3",
+  "Bal\u00e1zs Pali",
+  "streetROYAL",
+  "\u00d6csk\u00f6ss",
+  "Herceg D\u00e1vid",
+  "Sandyka",
+  "Diaz",
+  "Istv\u00e1n, a kir\u00e1ly 40",
+  "Dopeman",
+  "Brigi",
+  "SNEEZ",
+  "Burai Kriszti\u00e1n"
+];
+
+const initImagicoreArtistSlot = () => {
+  const prevCleanup = window.__imagicoreArtistSlotCleanup;
+  if (typeof prevCleanup === "function") {
+    prevCleanup();
+  }
+
+  const root = document.querySelector("[data-imagicore-artist-slot]");
+  if (!root) {
+    window.__imagicoreArtistSlotCleanup = null;
+    return;
+  }
+
+  const reelElements = Array.from(root.querySelectorAll("[data-artist-reel]"));
+  if (reelElements.length === 0) {
+    window.__imagicoreArtistSlotCleanup = null;
+    return;
+  }
+
+  const uniqueArtists = Array.from(
+    new Set(
+      IMAGICORE_ARTIST_NAMES
+        .map((name) => String(name || "").trim())
+        .filter(Boolean)
+    )
+  );
+
+  if (uniqueArtists.length < 2) {
+    window.__imagicoreArtistSlotCleanup = null;
+    return;
+  }
+
+  const shuffleArtists = (source) => {
+    const items = source.slice();
+    for (let i = items.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [items[i], items[j]] = [items[j], items[i]];
+    }
+    return items;
+  };
+
+  const buildArtistSequence = (seedOffset = 0) => {
+    let sequence = uniqueArtists.slice();
+    for (let attempt = 0; attempt < 8; attempt += 1) {
+      sequence = shuffleArtists(uniqueArtists);
+      if (sequence.length < 2 || sequence[0] !== sequence[sequence.length - 1]) {
+        break;
+      }
+    }
+
+    if (seedOffset > 0) {
+      const offset = seedOffset % sequence.length;
+      sequence = sequence.slice(offset).concat(sequence.slice(0, offset));
+    }
+
+    return sequence;
+  };
+
+  const normalizeLoopPosition = (viewport, segmentHeight) => {
+    if (!viewport || !segmentHeight) {
+      return;
+    }
+    if (viewport.scrollTop < segmentHeight * 0.5) {
+      viewport.scrollTop += segmentHeight;
+    } else if (viewport.scrollTop >= segmentHeight * 1.5) {
+      viewport.scrollTop -= segmentHeight;
+    }
+  };
+
+  const reelStates = [];
+  let rafId = 0;
+  let destroyed = false;
+
+  reelElements.forEach((reelEl, reelIndex) => {
+    const viewport = reelEl.querySelector(".artist-slot-viewport");
+    const track = reelEl.querySelector(".artist-slot-track");
+    if (!viewport || !track) {
+      return;
+    }
+
+    const order = buildArtistSequence(reelIndex * 9);
+    const repeated = order.concat(order, order);
+    const fragment = document.createDocumentFragment();
+
+    repeated.forEach((name, itemIndex) => {
+      const item = document.createElement("div");
+      item.className = "artist-slot-name";
+      if (itemIndex < order.length || itemIndex >= order.length * 2) {
+        item.classList.add("is-ghost");
+      }
+      item.textContent = name;
+      fragment.appendChild(item);
+    });
+
+    track.innerHTML = "";
+    track.appendChild(fragment);
+
+    const state = {
+      reelEl,
+      viewport,
+      segmentHeight: 0,
+      speed: 4.1,
+      hoverSlow: false,
+      pauseUntil: 0,
+      dragActive: false,
+      dragPointerId: null,
+      dragStartY: 0,
+      dragStartScrollTop: 0,
+      removeListeners: []
+    };
+
+    const syncMeasurements = () => {
+      state.segmentHeight = track.scrollHeight / 3;
+      if (state.segmentHeight > 0) {
+        viewport.scrollTop = state.segmentHeight;
+      }
+    };
+
+    const pauseForInteraction = (duration = 240) => {
+      state.pauseUntil = Date.now() + duration;
+    };
+
+    const onWheel = (event) => {
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+    };
+
+    const onPointerEnter = (event) => {
+      if (event.pointerType === "mouse") {
+        state.hoverSlow = true;
+        reelEl.classList.add("is-paused");
+      }
+    };
+
+    const onPointerLeave = () => {
+      state.hoverSlow = false;
+      reelEl.classList.remove("is-paused");
+    };
+
+    const onPointerDown = (event) => {
+      state.dragActive = true;
+      state.dragPointerId = event.pointerId;
+      state.dragStartY = event.clientY;
+      state.dragStartScrollTop = viewport.scrollTop;
+      pauseForInteraction(120);
+      reelEl.classList.add("is-paused");
+      reelEl.classList.add("is-dragging");
+      if (typeof viewport.setPointerCapture === "function") {
+        try {
+          viewport.setPointerCapture(event.pointerId);
+        } catch {
+          // ignore capture failures
+        }
+      }
+    };
+
+    const onPointerMove = (event) => {
+      if (!state.dragActive || state.dragPointerId !== event.pointerId) {
+        return;
+      }
+
+      const deltaY = event.clientY - state.dragStartY;
+      viewport.scrollTop = state.dragStartScrollTop - deltaY;
+      normalizeLoopPosition(viewport, state.segmentHeight);
+
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+    };
+
+    const finishPointerDrag = (event) => {
+      if (!state.dragActive || state.dragPointerId !== event.pointerId) {
+        return;
+      }
+      state.dragActive = false;
+      state.dragPointerId = null;
+      pauseForInteraction(180);
+      reelEl.classList.remove("is-paused");
+      reelEl.classList.remove("is-dragging");
+      if (typeof viewport.releasePointerCapture === "function") {
+        try {
+          viewport.releasePointerCapture(event.pointerId);
+        } catch {
+          // ignore capture failures
+        }
+      }
+    };
+
+    viewport.addEventListener("wheel", onWheel, { passive: false });
+    viewport.addEventListener("pointerenter", onPointerEnter);
+    viewport.addEventListener("pointerleave", onPointerLeave);
+    viewport.addEventListener("pointerdown", onPointerDown);
+    viewport.addEventListener("pointermove", onPointerMove);
+    viewport.addEventListener("pointerup", finishPointerDrag);
+    viewport.addEventListener("pointercancel", finishPointerDrag);
+    viewport.addEventListener("focus", () => reelEl.classList.add("is-paused"));
+    viewport.addEventListener("blur", () => reelEl.classList.remove("is-paused"));
+
+    state.removeListeners.push(
+      () => viewport.removeEventListener("wheel", onWheel),
+      () => viewport.removeEventListener("pointerenter", onPointerEnter),
+      () => viewport.removeEventListener("pointerleave", onPointerLeave),
+      () => viewport.removeEventListener("pointerdown", onPointerDown),
+      () => viewport.removeEventListener("pointermove", onPointerMove),
+      () => viewport.removeEventListener("pointerup", finishPointerDrag),
+      () => viewport.removeEventListener("pointercancel", finishPointerDrag)
+    );
+
+    reelStates.push(state);
+    window.requestAnimationFrame(syncMeasurements);
+  });
+
+  const onResize = () => {
+    reelStates.forEach((state) => {
+      const track = state.viewport.querySelector(".artist-slot-track");
+      if (!track) {
+        return;
+      }
+      const currentRatio = state.segmentHeight > 0 ? state.viewport.scrollTop / state.segmentHeight : 1;
+      state.segmentHeight = track.scrollHeight / 3;
+      if (state.segmentHeight > 0) {
+        state.viewport.scrollTop = state.segmentHeight * Math.min(1.5, Math.max(0.5, currentRatio));
+        normalizeLoopPosition(state.viewport, state.segmentHeight);
+      }
+    });
+  };
+
+  const tick = (timestamp) => {
+    if (destroyed) {
+      return;
+    }
+
+    if (!tick.lastTs) {
+      tick.lastTs = timestamp;
+    }
+
+    const dt = Math.max(0, (timestamp - tick.lastTs) / 1000);
+    tick.lastTs = timestamp;
+    const now = Date.now();
+
+    reelStates.forEach((state) => {
+      if (!state.segmentHeight) {
+        return;
+      }
+      if (state.dragActive) {
+        normalizeLoopPosition(state.viewport, state.segmentHeight);
+        return;
+      }
+      let speedFactor = 1;
+      if (now < state.pauseUntil) {
+        speedFactor = 0;
+      } else if (state.hoverSlow) {
+        speedFactor = 0.22;
+      }
+      if (speedFactor > 0) {
+        state.viewport.scrollTop += state.speed * speedFactor * dt * 18;
+        normalizeLoopPosition(state.viewport, state.segmentHeight);
+      }
+    });
+
+    rafId = window.requestAnimationFrame(tick);
+  };
+
+  window.addEventListener("resize", onResize);
+  rafId = window.requestAnimationFrame(tick);
+
+  window.__imagicoreArtistSlotCleanup = () => {
+    destroyed = true;
+    window.removeEventListener("resize", onResize);
+    if (rafId) {
+      window.cancelAnimationFrame(rafId);
+    }
+    reelStates.forEach((state) => {
+      state.removeListeners.forEach((remove) => remove());
+    });
+    window.__imagicoreArtistSlotCleanup = null;
+  };
+};
+
+const initImagicorePressMentions = () => {
+  const rows = Array.from(document.querySelectorAll(".imagicore-press-mentions .press-float-row"));
+  if (rows.length === 0) {
+    return;
+  }
+
+  rows.forEach((row) => {
+    const track = row.querySelector(".press-float-track");
+    if (!track || track.dataset.loopReady === "1") {
+      return;
+    }
+    track.dataset.loopReady = "1";
+    track.innerHTML += track.innerHTML;
+  });
 };
 
 
@@ -696,6 +1074,13 @@ const initImagicoreStories = () => {
       window.removeEventListener("mouseup", prev.endMouseDrag);
       window.removeEventListener("blur", prev.endMouseDrag);
     }
+    if (typeof prev.onTouchMove === "function") {
+      window.removeEventListener("touchmove", prev.onTouchMove);
+    }
+    if (typeof prev.endTouchDrag === "function") {
+      window.removeEventListener("touchend", prev.endTouchDrag);
+      window.removeEventListener("touchcancel", prev.endTouchDrag);
+    }
     if (typeof prev.onKeydown === "function") {
       window.removeEventListener("keydown", prev.onKeydown);
     }
@@ -768,6 +1153,7 @@ const initImagicoreStories = () => {
   };
 
   const modal = ensureStoryModal();
+  const modalFigure = modal ? modal.querySelector(".story-modal-figure") : null;
   const modalImage = document.getElementById("imagicoreStoryModalImage");
   const modalCaption = document.getElementById("imagicoreStoryModalCaption");
   const modalProgress = document.getElementById("imagicoreStoryModalProgress");
@@ -777,8 +1163,10 @@ const initImagicoreStories = () => {
   const modalBackdrop = modal ? modal.querySelector(".story-modal-backdrop") : null;
 
   const FACEBOOK_URL = "https://www.facebook.com/imagicore/";
-  const LOGO_SRC = "assets/images/imagicore/ic logo black white.svg";
+  const LOGO_SRC = "/assets/images/imagicore/ic logo black white.svg";
   const STORY_DURATION_MS = 4800;
+  const STORY_SWIPE_THRESHOLD = 36;
+  const STORY_A11Y_LABEL = "ImagiCORE sztori";
 
   let stories = [];
   let activeIndex = -1;
@@ -832,8 +1220,8 @@ const initImagicoreStories = () => {
     activeIndex = index;
     const story = stories[index];
     modalImage.src = normalizeBtsSrc(story.src);
-    modalImage.alt = story.alt || "BTS " + (index + 1);
-    modalCaption.textContent = story.alt || "BTS " + (index + 1);
+    modalImage.alt = STORY_A11Y_LABEL;
+    modalCaption.textContent = "";
     modal.hidden = false;
     modal.classList.add("is-open");
     document.body.classList.add("story-modal-open");
@@ -877,13 +1265,13 @@ const initImagicoreStories = () => {
       openBtn.type = "button";
       openBtn.className = "story-open";
       openBtn.setAttribute("data-story-index", String(index));
-      openBtn.setAttribute("aria-label", (item.alt || ("BTS " + (index + 1))) + " megnyitasa");
+      openBtn.setAttribute("aria-label", `${STORY_A11Y_LABEL} megnyitasa`);
 
       const cover = document.createElement("img");
       cover.className = "story-cover";
       cover.loading = "lazy";
       cover.src = normalizeBtsSrc(item.src);
-      cover.alt = item.alt || "BTS " + (index + 1);
+      cover.alt = STORY_A11Y_LABEL;
       cover.draggable = false;
 
       const avatarLink = document.createElement("a");
@@ -955,6 +1343,20 @@ const initImagicoreStories = () => {
   let dragStartScroll = 0;
   let dragDistance = 0;
   let pendingOpenIndex = -1;
+  let touchDragging = false;
+  let touchIdentifier = null;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let modalTouchIdentifier = null;
+  let modalTouchStartX = 0;
+  let modalTouchStartY = 0;
+  let modalTouchMoved = false;
+
+  const setDragActive = (active) => {
+    isDragging = active;
+    touchDragging = active;
+    track.classList.toggle("is-grabbing", active);
+  };
 
   const stopAutoScroll = () => {
     if (autoRaf) {
@@ -1007,7 +1409,7 @@ const initImagicoreStories = () => {
     }
 
     mouseDown = true;
-    isDragging = false;
+    setDragActive(false);
     autoPaused = true;
     dragStartX = event.clientX;
     dragStartScroll = track.scrollLeft;
@@ -1022,8 +1424,7 @@ const initImagicoreStories = () => {
     dragDistance = Math.max(dragDistance, Math.abs(dx));
 
     if (!isDragging && dragDistance > 6) {
-      isDragging = true;
-      track.classList.add("is-grabbing");
+      setDragActive(true);
     }
     if (!isDragging) {
       return;
@@ -1043,9 +1444,8 @@ const initImagicoreStories = () => {
 
     const moved = isDragging;
     mouseDown = false;
-    isDragging = false;
+    setDragActive(false);
     autoPaused = false;
-    track.classList.remove("is-grabbing");
 
     if (moved) {
       suppressClickUntil = Date.now() + 220;
@@ -1057,10 +1457,179 @@ const initImagicoreStories = () => {
     }
   };
 
+  const onTouchStart = (event) => {
+    if (!event.touches || event.touches.length === 0) {
+      return;
+    }
+    const avatarLink = event.target && event.target.closest ? event.target.closest(".story-avatar-link") : null;
+    if (avatarLink) {
+      pendingOpenIndex = -1;
+      return;
+    }
+
+    const touch = event.changedTouches[0];
+    const openBtn = event.target && event.target.closest ? event.target.closest(".story-open") : null;
+    if (openBtn) {
+      const idxRaw = Number(openBtn.getAttribute("data-story-index"));
+      pendingOpenIndex = Number.isFinite(idxRaw) ? idxRaw : -1;
+    } else {
+      pendingOpenIndex = -1;
+    }
+
+    touchIdentifier = touch.identifier;
+    dragStartX = touch.clientX;
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    dragStartScroll = track.scrollLeft;
+    dragDistance = 0;
+    autoPaused = true;
+    setDragActive(false);
+  };
+
+  const onTouchMove = (event) => {
+    if (touchIdentifier === null) {
+      return;
+    }
+    const touch = Array.from(event.changedTouches || []).find((item) => item.identifier === touchIdentifier);
+    if (!touch) {
+      return;
+    }
+
+    const dx = touch.clientX - dragStartX;
+    const dy = touch.clientY - touchStartY;
+
+    if (!touchDragging) {
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
+        touchIdentifier = null;
+        pendingOpenIndex = -1;
+        autoPaused = false;
+        return;
+      }
+      if (Math.abs(dx) > 8) {
+        setDragActive(true);
+      }
+    }
+
+    dragDistance = Math.max(dragDistance, Math.abs(dx));
+    if (!touchDragging) {
+      return;
+    }
+
+    track.scrollLeft = dragStartScroll - dx;
+    updatePagerActive();
+    if (event.cancelable) {
+      event.preventDefault();
+    }
+  };
+
+  const endTouchDrag = (event) => {
+    if (touchIdentifier === null && !touchDragging) {
+      return;
+    }
+
+    const touch = Array.from(event.changedTouches || []).find((item) => item.identifier === touchIdentifier);
+    if (!touch && touchIdentifier !== null) {
+      return;
+    }
+
+    const moved = touchDragging || dragDistance > 8;
+    touchIdentifier = null;
+    setDragActive(false);
+    autoPaused = false;
+
+    if (moved) {
+      suppressClickUntil = Date.now() + 280;
+      pendingOpenIndex = -1;
+      return;
+    }
+
+    if (pendingOpenIndex >= 0) {
+      showStory(pendingOpenIndex, true);
+      suppressClickUntil = Date.now() + 320;
+      pendingOpenIndex = -1;
+    }
+  };
+
+  const goToPreviousStory = () => {
+    showStory(activeIndex <= 0 ? 0 : activeIndex - 1, true);
+  };
+
+  const goToNextStory = () => {
+    showStory(activeIndex + 1, true);
+  };
+
+  const handleModalTap = (clientX, targetEl) => {
+    if (!modal || modal.hidden || !modalFigure || !targetEl) {
+      return false;
+    }
+
+    const interactiveTarget = targetEl.closest
+      ? targetEl.closest(".story-modal-close, .story-modal-nav")
+      : null;
+    if (interactiveTarget) {
+      return false;
+    }
+
+    const rect = modalFigure.getBoundingClientRect();
+    if (!rect.width || clientX < rect.left || clientX > rect.right) {
+      return false;
+    }
+
+    const relativeX = (clientX - rect.left) / rect.width;
+    if (relativeX <= 0.35) {
+      goToPreviousStory();
+      return true;
+    }
+    if (relativeX >= 0.65) {
+      goToNextStory();
+      return true;
+    }
+    return false;
+  };
+
+  const ensureModalTapZones = () => {
+    if (!modalFigure) {
+      return;
+    }
+
+    const hasZones = modalFigure.querySelector(".story-modal-tap-zone");
+    if (hasZones) {
+      return;
+    }
+
+    const prevZone = document.createElement("button");
+    prevZone.type = "button";
+    prevZone.className = "story-modal-tap-zone prev";
+    prevZone.setAttribute("aria-label", "Elozo sztori");
+
+    const nextZone = document.createElement("button");
+    nextZone.type = "button";
+    nextZone.className = "story-modal-tap-zone next";
+    nextZone.setAttribute("aria-label", "Kovetkezo sztori");
+
+    modalFigure.appendChild(prevZone);
+    modalFigure.appendChild(nextZone);
+
+    prevZone.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      goToPreviousStory();
+    });
+    nextZone.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      goToNextStory();
+    });
+  };
+
   track.addEventListener("mousedown", onMouseDown);
   window.addEventListener("mousemove", onMouseMove);
   window.addEventListener("mouseup", endMouseDrag);
   window.addEventListener("blur", endMouseDrag);
+  track.addEventListener("touchstart", onTouchStart, { passive: true });
+  window.addEventListener("touchmove", onTouchMove, { passive: false });
+  window.addEventListener("touchend", endTouchDrag, { passive: true });
+  window.addEventListener("touchcancel", endTouchDrag, { passive: true });
 
   track.addEventListener("scroll", updatePagerActive, { passive: true });
   track.addEventListener("click", (event) => {
@@ -1090,12 +1659,64 @@ const initImagicoreStories = () => {
     modalBackdrop.addEventListener("click", closeModal);
   }
   if (modalPrev) {
-    modalPrev.addEventListener("click", () => {
-      showStory(activeIndex <= 0 ? 0 : activeIndex - 1, true);
-    });
+    modalPrev.addEventListener("click", goToPreviousStory);
   }
   if (modalNext) {
-    modalNext.addEventListener("click", () => showStory(activeIndex + 1, true));
+    modalNext.addEventListener("click", goToNextStory);
+  }
+  ensureModalTapZones();
+  if (modalFigure) {
+    modalFigure.addEventListener("touchstart", (event) => {
+      if (!event.touches || event.touches.length === 0) {
+        return;
+      }
+      const touch = event.changedTouches[0];
+      modalTouchIdentifier = touch.identifier;
+      modalTouchStartX = touch.clientX;
+      modalTouchStartY = touch.clientY;
+      modalTouchMoved = false;
+    }, { passive: true });
+    modalFigure.addEventListener("touchmove", (event) => {
+      if (modalTouchIdentifier === null) {
+        return;
+      }
+      const touch = Array.from(event.changedTouches || []).find((item) => item.identifier === modalTouchIdentifier);
+      if (!touch) {
+        return;
+      }
+      if (
+        Math.abs(touch.clientX - modalTouchStartX) > 10 ||
+        Math.abs(touch.clientY - modalTouchStartY) > 10
+      ) {
+        modalTouchMoved = true;
+      }
+    }, { passive: true });
+    modalFigure.addEventListener("touchend", (event) => {
+      if (modalTouchIdentifier === null) {
+        return;
+      }
+      const touch = Array.from(event.changedTouches || []).find((item) => item.identifier === modalTouchIdentifier);
+      if (!touch) {
+        return;
+      }
+      const deltaX = touch.clientX - modalTouchStartX;
+      const deltaY = touch.clientY - modalTouchStartY;
+      if (Math.abs(deltaX) >= STORY_SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX < 0) {
+          goToNextStory();
+        } else {
+          goToPreviousStory();
+        }
+      } else if (!modalTouchMoved) {
+        handleModalTap(touch.clientX, event.target);
+      }
+      modalTouchIdentifier = null;
+      modalTouchMoved = false;
+    }, { passive: true });
+    modalFigure.addEventListener("touchcancel", () => {
+      modalTouchIdentifier = null;
+      modalTouchMoved = false;
+    }, { passive: true });
   }
 
   const onKeydown = (event) => {
@@ -1107,20 +1728,20 @@ const initImagicoreStories = () => {
       return;
     }
     if (event.key === "ArrowRight") {
-      showStory(activeIndex + 1, true);
+      goToNextStory();
       return;
     }
     if (event.key === "ArrowLeft") {
-      showStory(activeIndex <= 0 ? 0 : activeIndex - 1, true);
+      goToPreviousStory();
     }
   };
   window.addEventListener("keydown", onKeydown);
 
-  window.__imagicoreStoriesWindowHandlers = { onMouseMove, endMouseDrag, onKeydown };
+  window.__imagicoreStoriesWindowHandlers = { onMouseMove, endMouseDrag, onTouchMove, endTouchDrag, onKeydown };
 
-  const emergencyItems = Array.from({ length: 9 }, (_, i) => ({
-    src: "assets/images/imagicore/bts/" + String(9 - i) + ".webp",
-    alt: "BTS - " + String(9 - i)
+  const emergencyItems = Array.from({ length: 14 }, (_, i) => ({
+    src: "/assets/images/imagicore/bts/" + String(14 - i) + ".webp",
+    alt: STORY_A11Y_LABEL
   }));
   const existingItems = getExistingBtsItems(track);
   render(existingItems.length > 0 ? existingItems : emergencyItems);
@@ -1619,6 +2240,11 @@ initPageDynamicEffects();
   };
 
   const normalizePath = (pathname) => String(pathname || "/").replace(/\/+$/, "") || "/";
+  const getLocationKey = (urlLike) => {
+    const url = new URL(urlLike, window.location.href);
+    return `${normalizePath(url.pathname)}${url.search}`;
+  };
+  let currentLocationKey = getLocationKey(window.location.href);
 
   const shouldMarkYoutubeActive = (path) => {
     const p = normalizePath(path).toLowerCase();
@@ -1676,6 +2302,8 @@ initPageDynamicEffects();
     initImagicoreForm();
     initImagicoreShowreelAudio();
     initImagicoreStories();
+    initImagicoreArtistSlot();
+    initImagicorePressMentions();
     initPageDynamicEffects();
   };
 
@@ -1699,6 +2327,41 @@ initPageDynamicEffects();
       return false;
     }
     return currentSet.every((href, index) => href === nextSet[index]);
+  };
+
+  const scrollToHashTarget = (hash, behavior = "smooth", updateUrl = true) => {
+    const rawId = String(hash || "").replace(/^#/, "").trim();
+    if (!rawId) {
+      return false;
+    }
+
+    let targetId = rawId;
+    try {
+      targetId = decodeURIComponent(rawId);
+    } catch {
+      targetId = rawId;
+    }
+
+    const target = document.getElementById(targetId);
+    if (!target) {
+      return false;
+    }
+
+    const prefersReducedMotion = Boolean(
+      window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
+
+    target.scrollIntoView({
+      behavior: behavior === "smooth" && !prefersReducedMotion ? "smooth" : "auto",
+      block: "start"
+    });
+
+    if (updateUrl) {
+      const baseUrl = `${window.location.pathname}${window.location.search}`;
+      window.history.replaceState(window.history.state, "", `${baseUrl}#${encodeURIComponent(targetId)}`);
+    }
+
+    return true;
   };
 
   const isManagedNavLink = (anchor, event) => {
@@ -1839,6 +2502,7 @@ initPageDynamicEffects();
         window.history.pushState({}, "", targetUrl);
       }
 
+      currentLocationKey = getLocationKey(targetUrl);
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       refreshBasicUi(targetUrl);
       finishRouteProgress();
@@ -1848,6 +2512,26 @@ initPageDynamicEffects();
   };
 
   document.addEventListener("click", (event) => {
+    const hashAnchor = event.target && event.target.closest ? event.target.closest('a[href^="#"]') : null;
+    if (hashAnchor) {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+        return;
+      }
+      if (hashAnchor.hasAttribute("download")) {
+        return;
+      }
+      if (hashAnchor.target && hashAnchor.target.toLowerCase() === "_blank") {
+        return;
+      }
+
+      const hrefAttr = hashAnchor.getAttribute("href") || "";
+      if (scrollToHashTarget(hrefAttr, "smooth", true)) {
+        event.preventDefault();
+        closeMobileMenu();
+      }
+      return;
+    }
+
     const anchor = event.target && event.target.closest ? event.target.closest("a") : null;
     if (!isManagedNavLink(anchor, event)) {
       return;
@@ -1858,17 +2542,30 @@ initPageDynamicEffects();
   });
 
   window.addEventListener("popstate", () => {
+    const targetLocationKey = getLocationKey(window.location.href);
+    if (targetLocationKey === currentLocationKey) {
+      if (window.location.hash) {
+        scrollToHashTarget(window.location.hash, "auto", false);
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      }
+      closeMobileMenu();
+      return;
+    }
     swapMain(window.location.href, true);
   });
 
   window.addEventListener("pageshow", () => {
+    currentLocationKey = getLocationKey(window.location.href);
     setPageReady();
     refreshBasicUi(window.location.href);
   });
 
+  currentLocationKey = getLocationKey(window.location.href);
   setPageReady();
   refreshBasicUi(window.location.href);
 })();
+
 
 
 
