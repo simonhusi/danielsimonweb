@@ -1,10 +1,9 @@
-﻿/* Main site bundle */
+/* Main site bundle */
 @import url("/assets/css/base.css");
 
 /* Dark luxury refresh for core pages (excluding ImagiCORE and channel pages). */
 body.page-home,
 body.page-about,
-body.page-contact,
 body.page-youtube {
   --bg-1: #050808;
   --bg-2: #071010;
@@ -25,7 +24,6 @@ body.page-youtube {
 
 body.page-home .bg-layer,
 body.page-about .bg-layer,
-body.page-contact .bg-layer,
 body.page-youtube .bg-layer {
   --blob-speed: 1;
   --noise-frame: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
@@ -40,31 +38,26 @@ body.page-youtube .bg-layer {
 
 body.page-home .bg-layer::before,
 body.page-about .bg-layer::before,
-body.page-contact .bg-layer::before,
 body.page-youtube .bg-layer::before {
   content: none;
 }
 
 body.page-home .bg-layer.random-blob-enabled,
 body.page-about .bg-layer.random-blob-enabled,
-body.page-contact .bg-layer.random-blob-enabled,
 body.page-youtube .bg-layer.random-blob-enabled {
   overflow: hidden;
 }
 
 body.page-home .bg-layer .blob-field,
 body.page-about .bg-layer .blob-field,
-body.page-contact .bg-layer .blob-field,
 body.page-youtube .bg-layer .blob-field {
   position: absolute;
   inset: -10% -10%;
   pointer-events: none;
 }
 
-
 body.page-home .bg-layer .blob-field::before,
 body.page-about .bg-layer .blob-field::before,
-body.page-contact .bg-layer .blob-field::before,
 body.page-youtube .bg-layer .blob-field::before {
   content: "";
   position: absolute;
@@ -78,7 +71,6 @@ body.page-youtube .bg-layer .blob-field::before {
 }
 body.page-home .bg-layer .blob-node,
 body.page-about .bg-layer .blob-node,
-body.page-contact .bg-layer .blob-node,
 body.page-youtube .bg-layer .blob-node {
   position: absolute;
   width: var(--blob-size, 280px);
@@ -95,7 +87,6 @@ body.page-youtube .bg-layer .blob-node {
 
 body.page-home .bg-layer .blob-node::after,
 body.page-about .bg-layer .blob-node::after,
-body.page-contact .bg-layer .blob-node::after,
 body.page-youtube .bg-layer .blob-node::after {
   content: "";
   position: absolute;
@@ -110,7 +101,6 @@ body.page-youtube .bg-layer .blob-node::after {
 }
 body.page-home .bg-layer::after,
 body.page-about .bg-layer::after,
-body.page-contact .bg-layer::after,
 body.page-youtube .bg-layer::after {
   content: "";
   position: absolute;
@@ -159,7 +149,6 @@ body.page-youtube .bg-layer::after {
 
 body.page-home .topbar,
 body.page-about .topbar,
-body.page-contact .topbar,
 body.page-youtube .topbar {
   background: var(--menu-surface);
   border-bottom: 1px solid #134241;
@@ -167,14 +156,12 @@ body.page-youtube .topbar {
 
 body.page-home .brand,
 body.page-about .brand,
-body.page-contact .brand,
 body.page-youtube .brand {
   letter-spacing: 0.09em;
 }
 
 body.page-home .topbar nav a,
 body.page-about .topbar nav a,
-body.page-contact .topbar nav a,
 body.page-youtube .topbar nav a {
   color: #b8c7c7;
 }
@@ -183,8 +170,6 @@ body.page-home .topbar nav a:hover,
 body.page-home .topbar nav a.active,
 body.page-about .topbar nav a:hover,
 body.page-about .topbar nav a.active,
-body.page-contact .topbar nav a:hover,
-body.page-contact .topbar nav a.active,
 body.page-youtube .topbar nav a:hover,
 body.page-youtube .topbar nav a.active {
   color: var(--ink);
@@ -194,7 +179,6 @@ body.page-youtube .topbar nav a.active {
 
 body.page-home .topbar .nav-submenu,
 body.page-about .topbar .nav-submenu,
-body.page-contact .topbar .nav-submenu,
 body.page-youtube .topbar .nav-submenu {
   border-color: #1e6662;
   background: #071715f7;
@@ -202,25 +186,21 @@ body.page-youtube .topbar .nav-submenu {
 
 body.page-home .eyebrow,
 body.page-about .eyebrow,
-body.page-contact .eyebrow,
 body.page-youtube .eyebrow,
 body.page-home .section-kicker,
 body.page-about .section-kicker,
-body.page-contact .section-kicker,
 body.page-youtube .section-kicker {
   color: var(--accent-2);
 }
 
 body.page-home .section,
 body.page-about .section,
-body.page-contact .section,
 body.page-youtube .section {
   position: relative;
 }
 
 body.page-home .section::before,
 body.page-about .section::before,
-body.page-contact .section::before,
 body.page-youtube .section::before {
   content: "";
   position: absolute;
@@ -233,7 +213,6 @@ body.page-youtube .section::before {
 
 body.page-home .card,
 body.page-about .card,
-body.page-contact .card,
 body.page-youtube .card {
   background: var(--menu-surface);
   border: 1px solid #1b4747;
@@ -244,7 +223,6 @@ body.page-youtube .card {
 
 body.page-home .card:hover,
 body.page-about .card:hover,
-body.page-contact .card:hover,
 body.page-youtube .card:hover {
   border-color: #2c726f;
   box-shadow: 0 16px 35px #02100f80;
@@ -252,7 +230,6 @@ body.page-youtube .card:hover {
 
 body.page-home .btn,
 body.page-about .btn,
-body.page-contact .btn,
 body.page-youtube .btn {
   border-color: #1f4f4d;
   background: #0a1b1b;
@@ -260,15 +237,12 @@ body.page-youtube .btn {
 
 body.page-home .btn.primary,
 body.page-about .btn.primary,
-body.page-contact .btn.primary,
 body.page-youtube .btn.primary,
 body.page-home .btn-imagicore,
 body.page-about .btn-imagicore,
-body.page-contact .btn-imagicore,
 body.page-youtube .btn-imagicore,
 body.page-home .btn-youtube,
 body.page-about .btn-youtube,
-body.page-contact .btn-youtube,
 body.page-youtube .btn-youtube {
   background: linear-gradient(160deg, #015d57 0%, #049095 100%);
   border-color: #17a2a3;
@@ -277,11 +251,9 @@ body.page-youtube .btn-youtube {
 
 body.page-home .btn-youtube-outline,
 body.page-about .btn-youtube-outline,
-body.page-contact .btn-youtube-outline,
 body.page-youtube .btn-youtube-outline,
 body.page-home .btn-imagicore-outline,
 body.page-about .btn-imagicore-outline,
-body.page-contact .btn-imagicore-outline,
 body.page-youtube .btn-imagicore-outline {
   background: #0a1919;
   border-color: #226765;
@@ -290,7 +262,6 @@ body.page-youtube .btn-imagicore-outline {
 
 body.page-home .btn:hover,
 body.page-about .btn:hover,
-body.page-contact .btn:hover,
 body.page-youtube .btn:hover {
   border-color: #2f8a87;
   box-shadow: 0 0 0 1px #2f8a8740, 0 9px 24px #0222216b;
@@ -298,14 +269,12 @@ body.page-youtube .btn:hover {
 
 body.page-home .hero,
 body.page-about .page-hero,
-body.page-contact .page-hero,
 body.page-youtube .page-hero {
   position: relative;
 }
 
 body.page-home .hero::before,
 body.page-about .page-hero::before,
-body.page-contact .page-hero::before,
 body.page-youtube .page-hero::before {
   content: none;
 }
@@ -325,7 +294,6 @@ body.page-home .hero::after {
 
 body.page-home .section-title-row h2,
 body.page-about .section-title-row h2,
-body.page-contact .section-title-row h2,
 body.page-youtube .section-title-row h2 {
   display: inline-flex;
   align-items: center;
@@ -334,14 +302,12 @@ body.page-youtube .section-title-row h2 {
 
 body.page-home .section-title-row h2::after,
 body.page-about .section-title-row h2::after,
-body.page-contact .section-title-row h2::after,
 body.page-youtube .section-title-row h2::after {
   content: none;
 }
 
 body.page-home a:not(.btn),
 body.page-about a:not(.btn),
-body.page-contact a:not(.btn),
 body.page-youtube a:not(.btn) {
   text-decoration-color: #04909566;
   text-underline-offset: 0.22em;
@@ -349,14 +315,12 @@ body.page-youtube a:not(.btn) {
 
 body.page-home a:not(.btn):hover,
 body.page-about a:not(.btn):hover,
-body.page-contact a:not(.btn):hover,
 body.page-youtube a:not(.btn):hover {
   text-decoration-color: #049095;
 }
 
 body.page-home footer,
 body.page-about footer,
-body.page-contact footer,
 body.page-youtube footer {
   border-top: 1px solid #12403f;
 }
@@ -369,7 +333,6 @@ body.page-youtube footer {
 
   body.page-home .section::before,
   body.page-about .section::before,
-  body.page-contact .section::before,
   body.page-youtube .section::before {
     width: min(170px, 55%);
   }
@@ -378,14 +341,12 @@ body.page-youtube footer {
 /* V2 polish: remove remaining blue/pink drift on shared pages. */
 body.page-home .hero-art img,
 body.page-about .card img,
-body.page-contact .card img,
 body.page-youtube .card img {
   border-color: #215957;
 }
 
 body.page-home .moon,
 body.page-about .moon,
-body.page-contact .moon,
 body.page-youtube .moon {
   opacity: 0.5;
   filter: saturate(0.45) hue-rotate(-22deg);
@@ -393,7 +354,6 @@ body.page-youtube .moon {
 
 body.page-home .shooting-star,
 body.page-about .shooting-star,
-body.page-contact .shooting-star,
 body.page-youtube .shooting-star {
   opacity: 0.1;
   filter: saturate(0.55) hue-rotate(-26deg);
@@ -425,92 +385,8 @@ body.page-youtube .channel-card.af {
   background: var(--menu-surface);
 }
 
-body.page-contact main::before {
-  background:
-    radial-gradient(circle at 14% 22%, #0da19d1f 0 2px, transparent 3px),
-    radial-gradient(circle at 84% 28%, #0b7a731a 0 2px, transparent 3px),
-    radial-gradient(circle at 34% 76%, #1f5f5c19 0 1px, transparent 2px),
-    radial-gradient(circle at 70% 82%, #14575314 0 1px, transparent 2px);
-}
-
-body.page-contact .contact-card {
-  border-color: #215957;
-  background: var(--menu-surface);
-  box-shadow: 0 14px 30px #01090970;
-  backdrop-filter: blur(11px) saturate(115%);
-  -webkit-backdrop-filter: blur(11px) saturate(115%);
-}
-
-body.page-contact .contact-card-imagicore {
-  border-color: #26706d;
-  background: var(--menu-surface);
-}
-
-body.page-contact .contact-card-imagicore::after {
-  background: linear-gradient(92deg, #061111eb 0%, #061111d8 48%, #06111173 100%);
-}
-
-body.page-contact .contact-card-imagicore .contact-card-portrait {
-  filter: drop-shadow(0 0 18px #04909552);
-}
-
-body.page-contact .contact-card-imagicore .contact-card-mark {
-  background: #7fd7d5;
-}
-
-body.page-contact .contact-card-lines a {
-  color: #d7eceb;
-  border-color: #2a7673;
-  background: #0c2322bc;
-}
-
-body.page-contact .contact-card-general {
-  border-color: #1f6360;
-  background: var(--menu-surface);
-}
-
-body.page-contact .contact-card-general::after {
-  background: linear-gradient(92deg, #061111ee 0%, #061111db 50%, #06111169 100%);
-}
-
-body.page-contact .contact-card-general .contact-card-portrait {
-  filter: drop-shadow(0 0 18px #0e676349);
-}
-
-body.page-contact .contact-card-wedding {
-  border-color: #2a6d68;
-  background: var(--menu-surface);
-}
-
-body.page-contact .contact-card-wedding::before {
-  background: radial-gradient(80% 100% at 50% 100%, #0e746c6e 0%, #0e746c00 72%);
-}
-
-body.page-contact .contact-card-wedding::after {
-  background: radial-gradient(90% 100% at 50% 0%, #0a5e5868 0%, #0a5e5800 74%);
-}
-
-body.page-contact .contact-card-wedding h3 {
-  color: #e7f1f1;
-}
-
-body.page-contact .contact-card-wedding p {
-  color: #bad0d0;
-}
-
-body.page-contact .contact-card-wedding .contact-card-wedding-logo {
-  color: #79b9b6;
-}
-
-body.page-contact .btn-sweet {
-  background: linear-gradient(160deg, #015d57 0%, #049095 100%);
-  border-color: #17a2a3;
-  color: #e9fafa;
-}
-
 body.page-home .topbar.has-mobile-menu > nav .nav-social-link,
 body.page-about .topbar.has-mobile-menu > nav .nav-social-link,
-body.page-contact .topbar.has-mobile-menu > nav .nav-social-link,
 body.page-youtube .topbar.has-mobile-menu > nav .nav-social-link {
   border-color: #215957;
   background: #081a1a;
@@ -518,7 +394,6 @@ body.page-youtube .topbar.has-mobile-menu > nav .nav-social-link {
 
 body.page-home .topbar.has-mobile-menu > nav .nav-social-icon,
 body.page-about .topbar.has-mobile-menu > nav .nav-social-icon,
-body.page-contact .topbar.has-mobile-menu > nav .nav-social-icon,
 body.page-youtube .topbar.has-mobile-menu > nav .nav-social-icon {
   background-color: #88cecc;
 }
@@ -536,7 +411,6 @@ body.page-home .contact .page-links .btn.ghost {
   background: #0b1b1a;
   border-color: #245e5b;
 }
-
 
 /* Homepage-only border alignment (no global overrides). */
 body.page-home .section {
@@ -562,10 +436,6 @@ body.page-home .hero-art img {
   -webkit-user-drag: none;
 }
 
-
-
-
-
 @keyframes grainSeedStep {
   0% {
     --noise-frame: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
@@ -583,16 +453,6 @@ body.page-home .hero-art img {
     --noise-frame: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' seed='151' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 /* Homepage glass treatment for the highlighted content blocks only. */
 body.page-home main > section.section.reveal:not(.contact) {
@@ -645,13 +505,9 @@ body.page-home main > section.section.reveal:not(.contact) .cards .card {
   -webkit-backdrop-filter: blur(10px) saturate(118%);
 }
 
-
-
-
-/* Global frost panels for home/about/contact pages (overrides older home-only block). */
+/* Global frost panels for home/about pages (overrides older home-only block). */
 body.page-home main > section.section.reveal,
 body.page-about main > section.section.reveal,
-body.page-contact main > section.section.reveal {
   overflow: hidden;
   isolation: isolate;
   background: #06141380;
@@ -663,13 +519,11 @@ body.page-contact main > section.section.reveal {
 
 body.page-home main > section.section.reveal::before,
 body.page-about main > section.section.reveal::before,
-body.page-contact main > section.section.reveal::before {
   content: none;
 }
 
 body.page-home main > section.section.reveal::after,
 body.page-about main > section.section.reveal::after,
-body.page-contact main > section.section.reveal::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -685,14 +539,12 @@ body.page-contact main > section.section.reveal::after {
 
 body.page-home main > section.section.reveal > *,
 body.page-about main > section.section.reveal > *,
-body.page-contact main > section.section.reveal > * {
   position: relative;
   z-index: 1;
 }
 
 body.page-home main > section.section.reveal .section-title-row,
 body.page-about main > section.section.reveal .section-title-row,
-body.page-contact main > section.section.reveal .section-title-row {
   background: #07181778;
   border: 1px solid #1e5a58;
   border-radius: 10px;
@@ -703,22 +555,12 @@ body.page-contact main > section.section.reveal .section-title-row {
 
 body.page-home main > section.section.reveal .cards .card,
 body.page-about main > section.section.reveal .cards .card,
-body.page-contact main > section.section.reveal .cards .card,
-body.page-contact main > section.section.reveal .contact-card {
   background: #0513128c;
   border-color: #2a716e;
   box-shadow: inset 0 1px 0 #7ad5d51a, 0 10px 22px #00000042;
   backdrop-filter: blur(10px) saturate(118%);
   -webkit-backdrop-filter: blur(10px) saturate(118%);
 }
-
-
-
-
-
-
-
-
 
 @keyframes blobNoiseDrift {
   0% { background-position: 0 0; }
@@ -732,20 +574,6 @@ body.page-contact main > section.section.reveal .contact-card {
   50% { background-position: 6px -4px; }
   100% { background-position: 0 0; }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Homepage content hierarchy refresh */
 body.page-home .home-identity .hero-lead {
@@ -915,14 +743,6 @@ body.page-home .hero-art img {
   -webkit-user-select: none;
   -webkit-user-drag: none;
 }
-
-
-
-
-
-
-
-
 
 body.page-home .hero {
   isolation: isolate;
@@ -1117,8 +937,6 @@ body.page-home .insta-feature {
   gap: 1rem;
 }
 
-
-
 @media (max-width: 900px) {
   body.page-home .insta-feature {
     grid-template-columns: 1fr;
@@ -1132,21 +950,12 @@ body.page-home .insta-embed-note {
   line-height: 1.55;
 }
 
-
 /* No diamond title icons */
 body.page-home .section-title-row h2::after,
 body.page-about .section-title-row h2::after,
-body.page-contact .section-title-row h2::after,
 body.page-youtube .section-title-row h2::after {
   content: none;
 }
-
-
-
-
-
-
-
 
 body.page-about .about-story-card {
   display: grid;
@@ -1618,10 +1427,6 @@ body.page-home main > section.section.reveal {
     border-bottom: 1px solid #184948;
   }
 }
-
-
-
-
 
 body.page-about .about-timeline {
   margin: clamp(3rem, 8vw, 6rem) 0;
@@ -1941,7 +1746,6 @@ body.page-about .about-timeline-item.is-focus .about-timeline-year {
 }
 body.page-home .bg-layer,
 body.page-about .bg-layer,
-body.page-contact .bg-layer,
 body.page-youtube .bg-layer {
   --blob-speed: 1;
   --noise-frame: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' seed='11' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
@@ -1956,31 +1760,26 @@ body.page-youtube .bg-layer {
 
 body.page-home .bg-layer::before,
 body.page-about .bg-layer::before,
-body.page-contact .bg-layer::before,
 body.page-youtube .bg-layer::before {
   content: none;
 }
 
 body.page-home .bg-layer.random-blob-enabled,
 body.page-about .bg-layer.random-blob-enabled,
-body.page-contact .bg-layer.random-blob-enabled,
 body.page-youtube .bg-layer.random-blob-enabled {
   overflow: hidden;
 }
 
 body.page-home .bg-layer .blob-field,
 body.page-about .bg-layer .blob-field,
-body.page-contact .bg-layer .blob-field,
 body.page-youtube .bg-layer .blob-field {
   position: absolute;
   inset: -10% -10%;
   pointer-events: none;
 }
 
-
 body.page-home .bg-layer .blob-field::before,
 body.page-about .bg-layer .blob-field::before,
-body.page-contact .bg-layer .blob-field::before,
 body.page-youtube .bg-layer .blob-field::before {
   content: "";
   position: absolute;
@@ -1994,7 +1793,6 @@ body.page-youtube .bg-layer .blob-field::before {
 }
 body.page-home .bg-layer .blob-node,
 body.page-about .bg-layer .blob-node,
-body.page-contact .bg-layer .blob-node,
 body.page-youtube .bg-layer .blob-node {
   position: absolute;
   width: var(--blob-size, 280px);
@@ -2011,7 +1809,6 @@ body.page-youtube .bg-layer .blob-node {
 
 body.page-home .bg-layer .blob-node::after,
 body.page-about .bg-layer .blob-node::after,
-body.page-contact .bg-layer .blob-node::after,
 body.page-youtube .bg-layer .blob-node::after {
   content: "";
   position: absolute;
@@ -2026,7 +1823,6 @@ body.page-youtube .bg-layer .blob-node::after {
 }
 body.page-home .bg-layer::after,
 body.page-about .bg-layer::after,
-body.page-contact .bg-layer::after,
 body.page-youtube .bg-layer::after {
   content: "";
   position: absolute;
@@ -2091,16 +1887,6 @@ body.page-youtube .bg-layer::after {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
 /* Homepage glass treatment for the highlighted content blocks only. */
 body.page-home main > section.section.reveal:not(.contact) {
   overflow: hidden;
@@ -2152,13 +1938,9 @@ body.page-home main > section.section.reveal:not(.contact) .cards .card {
   -webkit-backdrop-filter: blur(10px) saturate(118%);
 }
 
-
-
-
-/* Global frost panels for home/about/contact pages (overrides older home-only block). */
+/* Global frost panels for home/about pages (overrides older home-only block). */
 body.page-home main > section.section.reveal,
 body.page-about main > section.section.reveal,
-body.page-contact main > section.section.reveal {
   overflow: hidden;
   isolation: isolate;
   background: #06141380;
@@ -2170,13 +1952,11 @@ body.page-contact main > section.section.reveal {
 
 body.page-home main > section.section.reveal::before,
 body.page-about main > section.section.reveal::before,
-body.page-contact main > section.section.reveal::before {
   content: none;
 }
 
 body.page-home main > section.section.reveal::after,
 body.page-about main > section.section.reveal::after,
-body.page-contact main > section.section.reveal::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -2192,14 +1972,12 @@ body.page-contact main > section.section.reveal::after {
 
 body.page-home main > section.section.reveal > *,
 body.page-about main > section.section.reveal > *,
-body.page-contact main > section.section.reveal > * {
   position: relative;
   z-index: 1;
 }
 
 body.page-home main > section.section.reveal .section-title-row,
 body.page-about main > section.section.reveal .section-title-row,
-body.page-contact main > section.section.reveal .section-title-row {
   background: #07181778;
   border: 1px solid #1e5a58;
   border-radius: 10px;
@@ -2210,22 +1988,12 @@ body.page-contact main > section.section.reveal .section-title-row {
 
 body.page-home main > section.section.reveal .cards .card,
 body.page-about main > section.section.reveal .cards .card,
-body.page-contact main > section.section.reveal .cards .card,
-body.page-contact main > section.section.reveal .contact-card {
   background: #0513128c;
   border-color: #2a716e;
   box-shadow: inset 0 1px 0 #7ad5d51a, 0 10px 22px #00000042;
   backdrop-filter: blur(10px) saturate(118%);
   -webkit-backdrop-filter: blur(10px) saturate(118%);
 }
-
-
-
-
-
-
-
-
 
 @keyframes blobNoiseDrift {
   0% { background-position: 0 0; }
@@ -2239,20 +2007,6 @@ body.page-contact main > section.section.reveal .contact-card {
   50% { background-position: 6px -4px; }
   100% { background-position: 0 0; }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Homepage content hierarchy refresh */
 body.page-home .home-identity .hero-lead {
@@ -2422,14 +2176,6 @@ body.page-home .hero-art img {
   -webkit-user-select: none;
   -webkit-user-drag: none;
 }
-
-
-
-
-
-
-
-
 
 body.page-home .hero {
   isolation: isolate;
@@ -2624,8 +2370,6 @@ body.page-home .insta-feature {
   gap: 1rem;
 }
 
-
-
 @media (max-width: 900px) {
   body.page-home .insta-feature {
     grid-template-columns: 1fr;
@@ -2639,21 +2383,12 @@ body.page-home .insta-embed-note {
   line-height: 1.55;
 }
 
-
 /* No diamond title icons */
 body.page-home .section-title-row h2::after,
 body.page-about .section-title-row h2::after,
-body.page-contact .section-title-row h2::after,
 body.page-youtube .section-title-row h2::after {
   content: none;
 }
-
-
-
-
-
-
-
 
 body.page-about .about-story-card {
   display: grid;
@@ -3126,10 +2861,6 @@ body.page-home main > section.section.reveal {
   }
 }
 
-
-
-
-
 body.page-about .about-timeline {
   margin: clamp(3rem, 8vw, 6rem) 0;
 }
@@ -3357,7 +3088,6 @@ body.page-about .about-timeline-item.is-faded-branch .about-timeline-node::after
     width: 24px;
   }
 }
-
 
 /* About timeline final override: centered trunk with readable branch reveals */
 body.page-about .about-timeline {
@@ -3634,8 +3364,6 @@ body.page-about .about-timeline-item.is-faded-branch .about-timeline-node::after
   }
 }
 
-
-
 /* About timeline viewport mask: entries emerge from and dissolve into the page gradient */
 body.page-about .about-timeline-layout {
   --timeline-fade-top: 11%;
@@ -3763,7 +3491,6 @@ body.page-about .about-timeline-node::after {
   transition: opacity 0.32s ease, transform 0.32s ease, box-shadow 0.32s ease !important;
 }
 
-
 /* About timeline readability + continuous trunk override */
 body.page-about .about-timeline-rail {
   width: 2px !important;
@@ -3875,10 +3602,6 @@ body.page-about .about-timeline-progress::after {
   box-shadow: 0 0 10px #c8fffc66, 0 0 20px #48ddd444;
 }
 
-
-
-
-
 /* About timeline spacing polish: keep nodes clear from text blocks */
 body.page-about .about-timeline-node::after {
   width: clamp(38px, 5vw, 64px) !important;
@@ -3976,8 +3699,6 @@ body.page-about .about-timeline-content {
 body.page-about .about-timeline-item:nth-child(even) .about-timeline-content {
   padding-top: 0 !important;
 }
-
-
 
 /* About timeline year alignment */
 body.page-about .about-timeline-node::after {
@@ -4279,3 +4000,1349 @@ body.page-about .about-editorial.is-reverse:has(.about-media-strip-parkour) .abo
     transform: none;
   }
 }
+
+body.page-home .home-direction-lead {
+  max-width: 58ch;
+  margin: 1rem 0 0;
+  color: #c7d7d6;
+}
+
+body.page-home .home-entry-points {
+  display: grid;
+  gap: 1.35rem;
+  padding: 1.4rem 1.5rem 1.6rem;
+  border: 1px solid rgba(145, 178, 176, 0.18);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top left, rgba(50, 93, 88, 0.22), transparent 32%),
+    linear-gradient(180deg, rgba(9, 16, 19, 0.92), rgba(10, 15, 18, 0.78));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+}
+
+body.page-home .home-entry-intro {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 58ch;
+}
+
+body.page-home .home-entry-intro h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+body.page-home .home-entry-intro p {
+  margin: 0;
+  color: #c7d7d6;
+}
+
+body.page-home .home-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+body.page-home .home-entry-card {
+  display: grid;
+  align-content: start;
+  gap: 0.85rem;
+  min-height: 100%;
+  padding: 1.2rem;
+  border-radius: 22px;
+  border: 1px solid rgba(173, 201, 198, 0.16);
+  background: linear-gradient(180deg, rgba(14, 24, 28, 0.92), rgba(10, 16, 19, 0.86));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+body.page-home .home-entry-card small {
+  color: #96b9b7;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.71rem;
+}
+
+body.page-home .home-entry-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.18;
+}
+
+body.page-home .home-entry-card p {
+  margin: 0;
+  color: #d4e1e0;
+  line-height: 1.65;
+}
+
+body.page-home .home-entry-card.is-creator {
+  background: linear-gradient(180deg, rgba(18, 33, 35, 0.95), rgba(9, 16, 18, 0.88));
+}
+
+body.page-home .home-entry-card.is-production {
+  background: linear-gradient(180deg, rgba(19, 24, 38, 0.95), rgba(10, 14, 23, 0.9));
+}
+
+body.page-home .home-entry-card.is-gaming {
+  background: linear-gradient(180deg, rgba(33, 22, 17, 0.95), rgba(18, 12, 10, 0.9));
+}
+
+body.page-home .home-entry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 980px) {
+  body.page-home .home-entry-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  body.page-home .home-entry-points {
+    padding: 1.1rem;
+    border-radius: 22px;
+  }
+
+  body.page-home .home-entry-card {
+    padding: 1rem;
+    border-radius: 18px;
+  }
+}
+
+body.page-home .home-story-arc {
+  display: grid;
+  gap: 1.35rem;
+  padding: 1.4rem 1.5rem 1.6rem;
+  border-radius: 30px;
+  border: 1px solid rgba(115, 178, 172, 0.18);
+  background:
+    radial-gradient(circle at top left, rgba(59, 110, 102, 0.18), transparent 30%),
+    linear-gradient(180deg, rgba(10, 16, 19, 0.94), rgba(8, 12, 15, 0.84));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.24);
+}
+
+body.page-home .home-story-arc-intro {
+  display: grid;
+  gap: 0.55rem;
+  max-width: 62ch;
+}
+
+body.page-home .home-story-arc-intro h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+  line-height: 1.06;
+}
+
+body.page-home .home-story-arc-intro p,
+body.page-home .home-story-closing p {
+  margin: 0;
+  color: #cbd8d7;
+  line-height: 1.72;
+}
+
+body.page-home .home-story-arc-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+body.page-home .home-story-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(113, 225, 215, 0.12), rgba(113, 225, 215, 0.7), rgba(113, 225, 215, 0.12));
+}
+
+body.page-home .home-story-beat {
+  position: relative;
+  display: grid;
+  gap: 0.8rem;
+  padding-top: 1.2rem;
+}
+
+body.page-home .home-story-beat::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #f4fffe 0%, #8af0e7 45%, #1f7f78 100%);
+  box-shadow: 0 0 0 6px rgba(75, 191, 181, 0.1);
+}
+
+body.page-home .home-story-year {
+  display: inline-block;
+  color: #9bd3cf;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+body.page-home .home-story-copy {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem 1rem 1.05rem;
+  min-height: 100%;
+  border-radius: 20px;
+  border: 1px solid rgba(147, 198, 194, 0.14);
+  background: linear-gradient(180deg, rgba(14, 22, 25, 0.88), rgba(10, 15, 18, 0.72));
+}
+
+body.page-home .home-story-label {
+  margin: 0;
+  color: #8fb9b6;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+body.page-home .home-story-copy h3 {
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.35;
+}
+
+body.page-home .home-story-copy p {
+  margin: 0;
+  color: #d7e2e1;
+  line-height: 1.68;
+}
+
+body.page-home .home-story-beat.is-breakthrough .home-story-copy,
+body.page-home .home-story-beat.is-now .home-story-copy {
+  border-color: rgba(134, 223, 214, 0.22);
+  background: linear-gradient(180deg, rgba(15, 26, 29, 0.92), rgba(10, 16, 19, 0.78));
+}
+
+body.page-home .home-story-closing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.2rem;
+}
+
+body.page-home .home-story-closing .btn {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+  body.page-home .home-story-arc-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  body.page-home .home-story-arc {
+    padding: 1.15rem;
+    border-radius: 22px;
+  }
+
+  body.page-home .home-story-arc-layout {
+    grid-template-columns: 1fr;
+  }
+
+  body.page-home .home-story-line {
+    left: 6px;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(180deg, rgba(113, 225, 215, 0.12), rgba(113, 225, 215, 0.7), rgba(113, 225, 215, 0.12));
+  }
+
+  body.page-home .home-story-beat {
+    padding-top: 0;
+    padding-left: 1.75rem;
+  }
+
+  body.page-home .home-story-beat::before {
+    top: 6px;
+    left: 0;
+  }
+
+  body.page-home .home-story-closing {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* Homepage de-box override for new sections */
+body.page-home .home-entry-points,
+body.page-home .home-story-arc {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.page-home .home-entry-card,
+body.page-home .home-story-copy,
+body.page-home .home-entry-card.is-creator,
+body.page-home .home-entry-card.is-production,
+body.page-home .home-entry-card.is-gaming,
+body.page-home .home-story-beat.is-breakthrough .home-story-copy,
+body.page-home .home-story-beat.is-now .home-story-copy {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.page-home .home-entry-card {
+  padding: 0.2rem 0 !important;
+}
+
+body.page-home .home-story-copy {
+  padding: 0.8rem 0 0.1rem !important;
+}
+
+@media (max-width: 640px) {
+  body.page-home .home-entry-points,
+  body.page-home .home-entry-card {
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+@media (max-width: 700px) {
+  body.page-home .home-story-arc {
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* YouTube hub editorial cards */
+body.page-youtube .channel-grid-editorial {
+  gap: 1.35rem;
+}
+
+body.page-youtube .channel-card-editorial {
+  overflow: hidden;
+  padding: 0;
+  border-radius: 24px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+body.page-youtube .channel-card-editorial .channel-card-media {
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+}
+
+body.page-youtube .channel-card-editorial .channel-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4, 10, 14, 0.12) 0%, rgba(4, 10, 14, 0.2) 30%, rgba(4, 10, 14, 0.76) 100%);
+}
+
+body.page-youtube .channel-card-editorial.ds .channel-card-media::after {
+  background: linear-gradient(180deg, rgba(8, 19, 31, 0.06) 0%, rgba(8, 19, 31, 0.18) 34%, rgba(8, 19, 31, 0.82) 100%);
+}
+
+body.page-youtube .channel-card-editorial.af .channel-card-media::after {
+  background: linear-gradient(180deg, rgba(30, 17, 26, 0.08) 0%, rgba(30, 17, 26, 0.18) 34%, rgba(30, 17, 26, 0.84) 100%);
+}
+
+body.page-youtube .channel-card-editorial .channel-card-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+body.page-youtube .channel-card-editorial .channel-card-badge {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 2;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(5, 16, 15, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #eff8f8;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+body.page-youtube .channel-card-editorial .channel-card-body {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.2rem 1.15rem 1.25rem;
+}
+
+body.page-youtube .channel-card-editorial h2 {
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+}
+
+body.page-youtube .channel-card-tone {
+  margin: 0;
+  color: #eef7f7;
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+body.page-youtube .channel-card-note {
+  margin: 0;
+  color: #b8c8c8;
+  line-height: 1.65;
+}
+
+body.page-youtube .channel-card-editorial.ds {
+  background:
+    radial-gradient(120% 120% at 12% 10%, #0e807b36 0%, transparent 54%),
+    linear-gradient(180deg, rgba(7, 18, 18, 0.96) 0%, rgba(7, 18, 18, 0.88) 100%);
+}
+
+body.page-youtube .channel-card-editorial.af {
+  background:
+    radial-gradient(120% 120% at 88% 14%, #d06a8d2c 0%, transparent 56%),
+    linear-gradient(180deg, rgba(23, 14, 20, 0.96) 0%, rgba(23, 14, 20, 0.88) 100%);
+}
+
+body.page-youtube .channel-card-editorial:hover .channel-card-media img {
+  transform: scale(1.045);
+  transition: transform 0.55s ease;
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-editorial .channel-card-media {
+    min-height: 220px;
+  }
+}
+
+/* YouTube hub stacked banner cards */
+body.page-youtube .channel-grid-stacked {
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+}
+
+body.page-youtube .channel-card-banner {
+  position: relative;
+  display: block;
+  min-height: 320px;
+  padding: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  text-decoration: none;
+  transform-style: preserve-3d;
+  transform: perspective(1400px) rotateX(0.8deg) rotateY(-1.2deg);
+  box-shadow: 0 24px 54px rgba(1, 8, 14, 0.28);
+}
+
+body.page-youtube .channel-card-banner:nth-child(even) {
+  transform: perspective(1400px) rotateX(0.8deg) rotateY(1.2deg);
+}
+
+body.page-youtube .channel-card-banner .channel-card-media {
+  min-height: 320px;
+  height: 100%;
+}
+
+body.page-youtube .channel-card-banner .channel-card-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transform: scale(1.015);
+  transition: transform 0.65s ease;
+}
+
+body.page-youtube .channel-card-banner .channel-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 14, 18, 0.12) 0%, rgba(7, 14, 18, 0.18) 26%, rgba(7, 14, 18, 0.76) 100%);
+}
+
+body.page-youtube .channel-card-banner.af .channel-card-media::after {
+  background: linear-gradient(180deg, rgba(20, 12, 18, 0.12) 0%, rgba(20, 12, 18, 0.18) 26%, rgba(20, 12, 18, 0.8) 100%);
+}
+
+body.page-youtube .channel-card-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  display: grid;
+  gap: 0.55rem;
+  padding: 1.5rem 1.45rem 1.35rem;
+  transform: translateZ(28px);
+}
+
+body.page-youtube .channel-card-banner h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 0.98;
+  color: #f5f8fa;
+}
+
+body.page-youtube .channel-card-banner .section-kicker {
+  margin: 0;
+  color: #c5ecea;
+}
+
+body.page-youtube .channel-card-banner.af .section-kicker {
+  color: #ffd2dd;
+}
+
+body.page-youtube .channel-card-cta {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 0.25rem;
+  padding: 0.58rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(6, 16, 15, 0.38);
+  color: #eff8f8;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+body.page-youtube .channel-card-banner:hover,
+body.page-youtube .channel-card-banner:focus-visible {
+  transform: perspective(1400px) translateY(-4px) rotateX(0deg) rotateY(0deg);
+  box-shadow: 0 32px 64px rgba(1, 8, 14, 0.34);
+}
+
+body.page-youtube .channel-card-banner:hover .channel-card-media img,
+body.page-youtube .channel-card-banner:focus-visible .channel-card-media img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-banner,
+  body.page-youtube .channel-card-banner:nth-child(even) {
+    min-height: 250px;
+    transform: none;
+  }
+
+  body.page-youtube .channel-card-banner .channel-card-media {
+    min-height: 250px;
+  }
+
+  body.page-youtube .channel-card-overlay {
+    padding: 1.15rem 1rem 1rem;
+  }
+}
+
+/* YouTube hub visual cleanup */
+body.page-youtube {
+  --bg-1: #06080d;
+  --bg-2: #0a0f18;
+  --ink: #f5f7fb;
+  --muted: #a9b3c4;
+  --surface: #0b111be6;
+  --surface-strong: #0d1320;
+  --line: #1a2740;
+  --accent: #6c86c8;
+  --menu-surface: #070b12ee;
+  --accent-2: #8ea7df;
+  background:
+    radial-gradient(circle at 14% 10%, #4568c01a 0%, transparent 26%),
+    radial-gradient(circle at 84% 8%, #77bef212 0%, transparent 24%),
+    linear-gradient(180deg, #0a0f18 0%, #06080d 100%);
+}
+
+body.page-youtube .bg-layer {
+  background:
+    var(--noise-frame),
+    radial-gradient(circle at 18% 16%, #4568c014 0%, transparent 32%),
+    radial-gradient(circle at 80% 12%, #77bef20d 0%, transparent 28%),
+    linear-gradient(to bottom, #070b12f5, #05070bfd);
+  opacity: 1;
+}
+
+body.page-youtube .bg-layer .blob-node {
+  background: radial-gradient(circle at 34% 32%, #3c5697b0 0%, #2f4377a2 44%, #2f437700 74%);
+  opacity: var(--blob-opacity, 0.34);
+  filter: blur(108px) saturate(110%);
+}
+
+body.page-youtube .topbar {
+  background: rgba(7, 11, 18, 0.78);
+  border-bottom: 1px solid #182235;
+}
+
+body.page-youtube .topbar nav a:hover,
+body.page-youtube .topbar nav a.active {
+  border-color: #2a3b61;
+  background: #101827;
+}
+
+body.page-youtube .topbar .nav-submenu {
+  border-color: #223251;
+  background: #08101af5;
+}
+
+body.page-youtube .eyebrow,
+body.page-youtube .section-kicker {
+  color: #8ea7df;
+}
+
+body.page-youtube .section::before {
+  background: linear-gradient(90deg, #4568c055 0%, #4568c000 100%);
+}
+
+body.page-youtube .channel-hub-section {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body.page-youtube .channel-grid-stacked {
+  gap: 1.2rem;
+}
+
+body.page-youtube .channel-card-banner {
+  border: 0;
+  box-shadow: 0 20px 48px rgba(1, 6, 16, 0.26);
+}
+
+body.page-youtube .channel-card-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02) 38%, rgba(255,255,255,0.06) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+body.page-youtube .channel-card-banner .channel-card-media::after {
+  background: linear-gradient(180deg, rgba(8, 12, 19, 0.06) 0%, rgba(8, 12, 19, 0.16) 24%, rgba(8, 12, 19, 0.72) 100%);
+}
+
+body.page-youtube .channel-card-banner.af .channel-card-media::after {
+  background: linear-gradient(180deg, rgba(16, 11, 12, 0.04) 0%, rgba(16, 11, 12, 0.14) 24%, rgba(16, 11, 12, 0.72) 100%);
+}
+
+body.page-youtube .channel-card-overlay {
+  gap: 0.45rem;
+}
+
+body.page-youtube .channel-card-cta {
+  background: rgba(8, 12, 19, 0.34);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+body.page-youtube .channel-card-banner:hover,
+body.page-youtube .channel-card-banner:focus-visible {
+  box-shadow: 0 28px 64px rgba(1, 6, 16, 0.3);
+}
+
+/* YouTube hub neutral cinematic pass */
+body.page-youtube {
+  background:
+    radial-gradient(circle at 18% 16%, rgba(70, 92, 146, 0.08) 0%, transparent 24%),
+    radial-gradient(circle at 82% 10%, rgba(119, 190, 242, 0.05) 0%, transparent 20%),
+    linear-gradient(180deg, #0a0d14 0%, #05070c 100%);
+}
+
+body.page-youtube .bg-layer {
+  background:
+    var(--noise-frame),
+    radial-gradient(circle at 22% 18%, rgba(68, 92, 146, 0.08) 0%, transparent 24%),
+    radial-gradient(circle at 78% 12%, rgba(119, 190, 242, 0.04) 0%, transparent 18%),
+    linear-gradient(to bottom, #090c13f6, #05070bfd);
+}
+
+body.page-youtube .bg-layer .blob-node {
+  background: radial-gradient(circle at 34% 32%, rgba(62, 81, 126, 0.72) 0%, rgba(39, 50, 78, 0.62) 44%, rgba(39, 50, 78, 0) 74%);
+  opacity: var(--blob-opacity, 0.22);
+  filter: blur(124px) saturate(102%);
+}
+
+body.page-youtube .page-hero {
+  max-width: 980px;
+}
+
+body.page-youtube .section-lead {
+  color: #98a5ba;
+}
+
+body.page-youtube .channel-card-banner {
+  border-radius: 30px;
+  box-shadow: 0 26px 64px rgba(0, 0, 0, 0.28);
+}
+
+body.page-youtube .channel-card-banner::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015) 42%, rgba(255,255,255,0.045) 100%);
+}
+
+body.page-youtube .channel-card-banner .channel-card-media::after {
+  background: linear-gradient(180deg, rgba(6, 8, 12, 0.04) 0%, rgba(6, 8, 12, 0.14) 24%, rgba(6, 8, 12, 0.78) 100%);
+}
+
+body.page-youtube .channel-card-banner.af .channel-card-media::after {
+  background: linear-gradient(180deg, rgba(10, 8, 8, 0.04) 0%, rgba(10, 8, 8, 0.14) 24%, rgba(10, 8, 8, 0.8) 100%);
+}
+
+body.page-youtube .channel-card-overlay {
+  padding: 1.65rem 1.55rem 1.45rem;
+}
+
+body.page-youtube .channel-card-banner h2 {
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.34);
+}
+
+body.page-youtube .channel-card-cta {
+  background: rgba(10, 13, 19, 0.22);
+  backdrop-filter: blur(8px);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* YouTube hub red + grey palette */
+body.page-youtube {
+  --bg-1: #0f0f10;
+  --bg-2: #18181b;
+  --ink: #f7f7f8;
+  --muted: #b4b4b8;
+  --surface: #18181bd9;
+  --surface-strong: #232326;
+  --line: #3a3a40;
+  --accent: #ff0000;
+  --menu-surface: #111114ee;
+  --accent-2: #d4d4d8;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255, 0, 0, 0.12) 0%, transparent 22%),
+    radial-gradient(circle at 82% 10%, rgba(255, 255, 255, 0.04) 0%, transparent 18%),
+    linear-gradient(180deg, #18181b 0%, #0f0f10 100%);
+}
+
+body.page-youtube .bg-layer {
+  background:
+    var(--noise-frame),
+    radial-gradient(circle at 22% 18%, rgba(255, 0, 0, 0.1) 0%, transparent 22%),
+    radial-gradient(circle at 78% 12%, rgba(255, 255, 255, 0.035) 0%, transparent 18%),
+    linear-gradient(to bottom, #17171af6, #0d0d10fd);
+}
+
+body.page-youtube .bg-layer .blob-node {
+  background: radial-gradient(circle at 34% 32%, rgba(255, 0, 0, 0.52) 0%, rgba(126, 0, 0, 0.42) 44%, rgba(126, 0, 0, 0) 74%);
+  opacity: var(--blob-opacity, 0.18);
+  filter: blur(132px) saturate(102%);
+}
+
+body.page-youtube .topbar {
+  background: rgba(14, 14, 17, 0.82);
+  border-bottom: 1px solid #2f2f35;
+}
+
+body.page-youtube .topbar nav a {
+  color: #bebec6;
+}
+
+body.page-youtube .topbar nav a:hover,
+body.page-youtube .topbar nav a.active {
+  color: #ffffff;
+  border-color: #4a4a52;
+  background: #1d1d22;
+}
+
+body.page-youtube .topbar .nav-submenu {
+  border-color: #3a3a40;
+  background: #141418f5;
+}
+
+body.page-youtube .eyebrow,
+body.page-youtube .section-kicker {
+  color: #ff3b3b;
+}
+
+body.page-youtube .section::before {
+  background: linear-gradient(90deg, rgba(255, 0, 0, 0.45) 0%, rgba(255, 0, 0, 0) 100%);
+}
+
+body.page-youtube .channel-card-banner {
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.34);
+}
+
+body.page-youtube .channel-card-banner::before {
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02) 42%, rgba(255,0,0,0.09) 100%);
+}
+
+body.page-youtube .channel-card-banner .channel-card-media::after {
+  background: linear-gradient(180deg, rgba(12, 12, 14, 0.04) 0%, rgba(12, 12, 14, 0.14) 24%, rgba(12, 12, 14, 0.8) 100%);
+}
+
+body.page-youtube .channel-card-banner.af .channel-card-media::after {
+  background: linear-gradient(180deg, rgba(18, 12, 12, 0.04) 0%, rgba(18, 12, 12, 0.16) 24%, rgba(18, 12, 12, 0.82) 100%);
+}
+
+body.page-youtube .channel-card-banner .section-kicker,
+body.page-youtube .channel-card-banner.af .section-kicker {
+  color: #ffd3db;
+}
+
+body.page-youtube .channel-card-cta {
+  background: rgba(20, 20, 24, 0.42);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+/* YouTube hub homepage-style grey + red background */
+body.page-youtube {
+  --bg-1: #121214;
+  --bg-2: #1a1a1d;
+  --ink: #f5f5f7;
+  --muted: #b8b8bd;
+  --surface: #17171ae6;
+  --surface-strong: #1f1f23;
+  --line: #303036;
+  --accent: #ff0000;
+  --menu-surface: #121216ee;
+  --accent-2: #d4d4d8;
+  background:
+    radial-gradient(circle at 12% 6%, #ff000022 0%, transparent 32%),
+    radial-gradient(circle at 84% 2%, #ffffff12 0%, transparent 36%),
+    linear-gradient(165deg, #1a1a1d 0%, #121214 55%, #1a1a1d 100%);
+  background-attachment: fixed;
+}
+
+body.page-youtube .bg-layer {
+  background:
+    var(--noise-frame),
+    radial-gradient(circle at 18% 14%, #2a2a2e66 0%, transparent 38%),
+    linear-gradient(to bottom, #101014f4, #0b0b0efc);
+  background-size: 220px 220px, 100% 100%, 100% 100%;
+  background-position: 0 0, center, center;
+  animation: grainSeedStep 2.4s steps(1, end) infinite;
+}
+
+body.page-youtube .bg-layer .blob-node {
+  background: radial-gradient(circle at 34% 32%, #ff214db8 0%, #b31232a6 44%, #b3123200 74%);
+  opacity: var(--blob-opacity, 0.3);
+  filter: blur(104px) saturate(118%);
+  mix-blend-mode: normal;
+}
+
+body.page-youtube .bg-layer .blob-field::before {
+  opacity: 0.09;
+  mix-blend-mode: soft-light;
+}
+
+/* YouTube hub card size + local text blur */
+body.page-youtube .channel-card-banner {
+  min-height: 342px;
+}
+
+body.page-youtube .channel-card-banner .channel-card-media,
+body.page-youtube .channel-card-banner .channel-card-media img {
+  min-height: 342px;
+  height: 342px;
+}
+
+body.page-youtube .channel-card-overlay {
+  overflow: hidden;
+}
+
+body.page-youtube .channel-card-overlay::before {
+  content: "";
+  position: absolute;
+  left: -2%;
+  bottom: -8%;
+  width: 68%;
+  height: 58%;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at left bottom, rgba(8, 8, 10, 0.72) 0%, rgba(8, 8, 10, 0.48) 32%, rgba(8, 8, 10, 0.18) 58%, rgba(8, 8, 10, 0) 78%);
+  filter: blur(26px);
+  transform: translateZ(18px);
+  pointer-events: none;
+}
+
+body.page-youtube .channel-card-overlay::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64%;
+  height: 46%;
+  background: linear-gradient(0deg, rgba(8, 8, 10, 0.62) 0%, rgba(8, 8, 10, 0.26) 42%, rgba(8, 8, 10, 0) 100%);
+  clip-path: polygon(0 100%, 0 30%, 46% 48%, 100% 100%);
+  pointer-events: none;
+}
+
+body.page-youtube .channel-card-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-banner {
+    min-height: 264px;
+  }
+
+  body.page-youtube .channel-card-banner .channel-card-media,
+  body.page-youtube .channel-card-banner .channel-card-media img {
+    min-height: 264px;
+    height: 264px;
+  }
+
+  body.page-youtube .channel-card-overlay::before {
+    width: 84%;
+    height: 64%;
+  }
+
+  body.page-youtube .channel-card-overlay::after {
+    width: 82%;
+    height: 50%;
+  }
+}
+
+/* YouTube hub true local blur under text */
+body.page-youtube .channel-card-overlay::before {
+  left: 1.2rem;
+  bottom: 1rem;
+  width: 58%;
+  height: 48%;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(10, 10, 12, 0.42) 0%, rgba(10, 10, 12, 0.28) 38%, rgba(10, 10, 12, 0.08) 72%, rgba(10, 10, 12, 0) 100%);
+  backdrop-filter: blur(18px) saturate(108%);
+  -webkit-backdrop-filter: blur(18px) saturate(108%);
+  -webkit-mask-image: linear-gradient(115deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.96) 34%, rgba(0,0,0,0.46) 72%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(115deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.96) 34%, rgba(0,0,0,0.46) 72%, rgba(0,0,0,0) 100%);
+  filter: none;
+}
+
+body.page-youtube .channel-card-overlay::after {
+  left: 1rem;
+  bottom: 0.8rem;
+  width: 62%;
+  height: 52%;
+  background: linear-gradient(0deg, rgba(8, 8, 10, 0.54) 0%, rgba(8, 8, 10, 0.22) 44%, rgba(8, 8, 10, 0) 100%);
+  clip-path: polygon(0 100%, 0 18%, 44% 38%, 100% 100%);
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-overlay::before {
+    left: 0.9rem;
+    bottom: 0.8rem;
+    width: 74%;
+    height: 54%;
+    backdrop-filter: blur(15px) saturate(106%);
+    -webkit-backdrop-filter: blur(15px) saturate(106%);
+  }
+
+  body.page-youtube .channel-card-overlay::after {
+    left: 0.75rem;
+    bottom: 0.65rem;
+    width: 78%;
+    height: 56%;
+  }
+}
+
+/* YouTube hub tighter text-support blur */
+body.page-youtube .channel-card-overlay {
+  width: min(520px, 62%);
+}
+
+body.page-youtube .channel-card-overlay::before {
+  left: -0.35rem;
+  bottom: -0.2rem;
+  width: min(430px, 100%);
+  height: 168px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(10, 10, 12, 0.52) 0%, rgba(10, 10, 12, 0.34) 44%, rgba(10, 10, 12, 0.12) 74%, rgba(10, 10, 12, 0) 100%);
+  backdrop-filter: blur(20px) saturate(108%);
+  -webkit-backdrop-filter: blur(20px) saturate(108%);
+  -webkit-mask-image: linear-gradient(112deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.96) 42%, rgba(0,0,0,0.28) 76%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(112deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.96) 42%, rgba(0,0,0,0.28) 76%, rgba(0,0,0,0) 100%);
+}
+
+body.page-youtube .channel-card-overlay::after {
+  left: -0.2rem;
+  bottom: -0.35rem;
+  width: min(470px, 108%);
+  height: 178px;
+  background: radial-gradient(ellipse at left bottom, rgba(8, 8, 10, 0.34) 0%, rgba(8, 8, 10, 0.16) 44%, rgba(8, 8, 10, 0.04) 68%, rgba(8, 8, 10, 0) 84%);
+  clip-path: none;
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-overlay {
+    width: min(100%, 420px);
+  }
+
+  body.page-youtube .channel-card-overlay::before {
+    width: min(360px, 100%);
+    height: 150px;
+  }
+
+  body.page-youtube .channel-card-overlay::after {
+    width: min(390px, 106%);
+    height: 160px;
+  }
+}
+
+/* YouTube hub title balance for long AF label */
+body.page-youtube .channel-card-banner.af .channel-card-overlay {
+  width: min(640px, 72%);
+}
+
+body.page-youtube .channel-card-banner.af h2 {
+  max-width: 12ch;
+  font-size: clamp(2.5rem, 3.8vw, 4rem);
+  line-height: 0.94;
+}
+
+body.page-youtube .channel-card-banner.ds h2 {
+  max-width: 11ch;
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-banner.af .channel-card-overlay {
+    width: min(100%, 460px);
+  }
+
+  body.page-youtube .channel-card-banner.af h2 {
+    max-width: 10ch;
+    font-size: clamp(2.1rem, 7vw, 3.1rem);
+  }
+}
+
+/* YouTube hub AF readability pass */
+body.page-youtube .channel-card-banner.af .channel-card-overlay::before {
+  width: min(500px, 112%);
+  height: 188px;
+  background: linear-gradient(135deg, rgba(9, 8, 8, 0.72) 0%, rgba(9, 8, 8, 0.52) 42%, rgba(9, 8, 8, 0.18) 76%, rgba(9, 8, 8, 0) 100%);
+  backdrop-filter: blur(22px) saturate(104%);
+  -webkit-backdrop-filter: blur(22px) saturate(104%);
+}
+
+body.page-youtube .channel-card-banner.af .channel-card-overlay::after {
+  width: min(560px, 118%);
+  height: 196px;
+  background: radial-gradient(ellipse at left bottom, rgba(8, 8, 10, 0.48) 0%, rgba(8, 8, 10, 0.26) 46%, rgba(8, 8, 10, 0.08) 70%, rgba(8, 8, 10, 0) 86%);
+}
+
+body.page-youtube .channel-card-banner.af h2 {
+  max-width: 9.2ch;
+  font-size: clamp(2.35rem, 3.5vw, 3.55rem);
+  line-height: 0.96;
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-banner.af .channel-card-overlay::before {
+    width: min(390px, 108%);
+    height: 164px;
+  }
+
+  body.page-youtube .channel-card-banner.af .channel-card-overlay::after {
+    width: min(420px, 114%);
+    height: 170px;
+  }
+
+  body.page-youtube .channel-card-banner.af h2 {
+    max-width: 8.8ch;
+    font-size: clamp(2rem, 6.4vw, 2.85rem);
+  }
+}
+
+/* YouTube hub AF single-line title */
+body.page-youtube .channel-card-banner.af h2 {
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  letter-spacing: -0.035em;
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-banner.af h2 {
+    white-space: normal;
+    font-size: clamp(2rem, 6.4vw, 2.85rem);
+  }
+}
+
+/* YouTube hub unified overlay geometry */
+body.page-youtube .channel-card-banner {
+  min-height: 342px;
+}
+
+body.page-youtube .channel-card-banner .channel-card-media,
+body.page-youtube .channel-card-banner .channel-card-media img {
+  height: 342px;
+  min-height: 342px;
+}
+
+body.page-youtube .channel-card-overlay,
+body.page-youtube .channel-card-banner.af .channel-card-overlay,
+body.page-youtube .channel-card-banner.ds .channel-card-overlay {
+  position: absolute;
+  left: 1.25rem;
+  bottom: 1.05rem;
+  width: min(540px, 64%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  padding: 0;
+  overflow: visible;
+}
+
+body.page-youtube .channel-card-overlay::before,
+body.page-youtube .channel-card-banner.af .channel-card-overlay::before {
+  content: "";
+  position: absolute;
+  left: -0.9rem;
+  bottom: -0.85rem;
+  width: min(460px, calc(100% + 1.4rem));
+  height: 172px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, rgba(10, 10, 12, 0.62) 0%, rgba(10, 10, 12, 0.4) 42%, rgba(10, 10, 12, 0.14) 76%, rgba(10, 10, 12, 0) 100%);
+  backdrop-filter: blur(20px) saturate(108%);
+  -webkit-backdrop-filter: blur(20px) saturate(108%);
+  -webkit-mask-image: linear-gradient(112deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.96) 42%, rgba(0,0,0,0.3) 76%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(112deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.96) 42%, rgba(0,0,0,0.3) 76%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.page-youtube .channel-card-overlay::after,
+body.page-youtube .channel-card-banner.af .channel-card-overlay::after {
+  content: "";
+  position: absolute;
+  left: -1rem;
+  bottom: -1rem;
+  width: min(500px, calc(100% + 2rem));
+  height: 184px;
+  background: radial-gradient(ellipse at left bottom, rgba(8, 8, 10, 0.42) 0%, rgba(8, 8, 10, 0.22) 46%, rgba(8, 8, 10, 0.07) 72%, rgba(8, 8, 10, 0) 88%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.page-youtube .channel-card-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.page-youtube .channel-card-banner h2,
+body.page-youtube .channel-card-banner.ds h2 {
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(1.95rem, 3vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+body.page-youtube .channel-card-banner.af h2 {
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(1.82rem, 2.75vw, 2.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-banner,
+  body.page-youtube .channel-card-banner .channel-card-media,
+  body.page-youtube .channel-card-banner .channel-card-media img {
+    min-height: 264px;
+    height: 264px;
+  }
+
+  body.page-youtube .channel-card-overlay,
+  body.page-youtube .channel-card-banner.af .channel-card-overlay,
+  body.page-youtube .channel-card-banner.ds .channel-card-overlay {
+    left: 0.95rem;
+    bottom: 0.8rem;
+    width: min(420px, 84%);
+    gap: 0.45rem;
+  }
+
+  body.page-youtube .channel-card-overlay::before,
+  body.page-youtube .channel-card-banner.af .channel-card-overlay::before {
+    left: -0.7rem;
+    bottom: -0.7rem;
+    width: min(360px, calc(100% + 1rem));
+    height: 150px;
+    backdrop-filter: blur(16px) saturate(106%);
+    -webkit-backdrop-filter: blur(16px) saturate(106%);
+  }
+
+  body.page-youtube .channel-card-overlay::after,
+  body.page-youtube .channel-card-banner.af .channel-card-overlay::after {
+    left: -0.75rem;
+    bottom: -0.8rem;
+    width: min(390px, calc(100% + 1.3rem));
+    height: 160px;
+  }
+
+  body.page-youtube .channel-card-banner h2,
+  body.page-youtube .channel-card-banner.ds h2,
+  body.page-youtube .channel-card-banner.af h2 {
+    white-space: normal;
+    font-size: clamp(2rem, 6vw, 2.9rem);
+    max-width: 9ch;
+  }
+}
+
+/* YouTube hub aligned card perspective */
+body.page-youtube .channel-card-banner,
+body.page-youtube .channel-card-banner:nth-child(even) {
+  transform: perspective(1400px) rotateX(0.35deg) rotateY(0deg);
+}
+
+body.page-youtube .channel-card-banner:hover,
+body.page-youtube .channel-card-banner:focus-visible,
+body.page-youtube .channel-card-banner:nth-child(even):hover,
+body.page-youtube .channel-card-banner:nth-child(even):focus-visible {
+  transform: perspective(1400px) translateY(-4px) rotateX(0deg) rotateY(0deg);
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-banner,
+  body.page-youtube .channel-card-banner:nth-child(even) {
+    transform: none;
+  }
+}
+
+/* YouTube hub final card alignment lock */
+body.page-youtube .channel-card-banner,
+body.page-youtube .channel-card-banner:nth-child(even),
+body.page-youtube .channel-card-banner:hover,
+body.page-youtube .channel-card-banner:focus-visible,
+body.page-youtube .channel-card-banner:nth-child(even):hover,
+body.page-youtube .channel-card-banner:nth-child(even):focus-visible {
+  transform: none;
+}
+
+body.page-youtube .channel-grid-stacked {
+  gap: 1.15rem;
+}
+
+body.page-youtube .channel-card-banner,
+body.page-youtube .channel-card-banner.af,
+body.page-youtube .channel-card-banner.ds {
+  width: 100%;
+  min-height: 342px;
+}
+
+body.page-youtube .channel-card-banner .channel-card-media,
+body.page-youtube .channel-card-banner .channel-card-media img,
+body.page-youtube .channel-card-banner.af .channel-card-media,
+body.page-youtube .channel-card-banner.af .channel-card-media img,
+body.page-youtube .channel-card-banner.ds .channel-card-media,
+body.page-youtube .channel-card-banner.ds .channel-card-media img {
+  width: 100%;
+  height: 342px;
+  min-height: 342px;
+}
+
+body.page-youtube .channel-card-overlay,
+body.page-youtube .channel-card-banner.af .channel-card-overlay,
+body.page-youtube .channel-card-banner.ds .channel-card-overlay {
+  left: 1.15rem;
+  right: auto;
+  bottom: 1rem;
+  width: 520px;
+  max-width: calc(100% - 2.3rem);
+  gap: 0.52rem;
+}
+
+body.page-youtube .channel-card-overlay::before,
+body.page-youtube .channel-card-overlay::after,
+body.page-youtube .channel-card-banner.af .channel-card-overlay::before,
+body.page-youtube .channel-card-banner.af .channel-card-overlay::after,
+body.page-youtube .channel-card-banner.ds .channel-card-overlay::before,
+body.page-youtube .channel-card-banner.ds .channel-card-overlay::after {
+  left: -0.8rem;
+  bottom: -0.8rem;
+}
+
+body.page-youtube .channel-card-overlay::before,
+body.page-youtube .channel-card-banner.af .channel-card-overlay::before,
+body.page-youtube .channel-card-banner.ds .channel-card-overlay::before {
+  width: min(448px, calc(100% + 1rem));
+  height: 170px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(10, 10, 12, 0.62) 0%, rgba(10, 10, 12, 0.4) 42%, rgba(10, 10, 12, 0.14) 76%, rgba(10, 10, 12, 0) 100%);
+  backdrop-filter: blur(20px) saturate(108%);
+  -webkit-backdrop-filter: blur(20px) saturate(108%);
+  -webkit-mask-image: linear-gradient(112deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.96) 42%, rgba(0,0,0,0.3) 76%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(112deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.96) 42%, rgba(0,0,0,0.3) 76%, rgba(0,0,0,0) 100%);
+}
+
+body.page-youtube .channel-card-overlay::after,
+body.page-youtube .channel-card-banner.af .channel-card-overlay::after,
+body.page-youtube .channel-card-banner.ds .channel-card-overlay::after {
+  width: min(486px, calc(100% + 1.5rem));
+  height: 180px;
+  background: radial-gradient(ellipse at left bottom, rgba(8, 8, 10, 0.42) 0%, rgba(8, 8, 10, 0.22) 46%, rgba(8, 8, 10, 0.07) 72%, rgba(8, 8, 10, 0) 88%);
+}
+
+body.page-youtube .channel-card-banner h2,
+body.page-youtube .channel-card-banner.ds h2,
+body.page-youtube .channel-card-banner.af h2 {
+  max-width: none;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+body.page-youtube .channel-card-banner.ds h2 {
+  white-space: nowrap;
+  font-size: clamp(1.95rem, 3vw, 3rem);
+}
+
+body.page-youtube .channel-card-banner.af h2 {
+  white-space: nowrap;
+  font-size: clamp(1.82rem, 2.75vw, 2.8rem);
+}
+
+@media (max-width: 900px) {
+  body.page-youtube .channel-card-banner,
+  body.page-youtube .channel-card-banner.af,
+  body.page-youtube .channel-card-banner.ds,
+  body.page-youtube .channel-card-banner .channel-card-media,
+  body.page-youtube .channel-card-banner .channel-card-media img {
+    min-height: 264px;
+    height: 264px;
+  }
+
+  body.page-youtube .channel-card-overlay,
+  body.page-youtube .channel-card-banner.af .channel-card-overlay,
+  body.page-youtube .channel-card-banner.ds .channel-card-overlay {
+    left: 0.95rem;
+    width: calc(100% - 1.9rem);
+    max-width: 420px;
+  }
+
+  body.page-youtube .channel-card-overlay::before,
+  body.page-youtube .channel-card-banner.af .channel-card-overlay::before,
+  body.page-youtube .channel-card-banner.ds .channel-card-overlay::before {
+    width: min(360px, calc(100% + 0.8rem));
+    height: 150px;
+  }
+
+  body.page-youtube .channel-card-overlay::after,
+  body.page-youtube .channel-card-banner.af .channel-card-overlay::after,
+  body.page-youtube .channel-card-banner.ds .channel-card-overlay::after {
+    width: min(388px, calc(100% + 1.1rem));
+    height: 160px;
+  }
+
+  body.page-youtube .channel-card-banner.ds h2,
+  body.page-youtube .channel-card-banner.af h2 {
+    white-space: normal;
+    font-size: clamp(2rem, 6vw, 2.9rem);
+    max-width: 9ch;
+  }
+}
+

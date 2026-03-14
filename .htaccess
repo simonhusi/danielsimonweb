@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule ^about-me/?$ /rolam/ [R=301,L]
+RewriteRule ^contact/?$ /kapcsolat/ [R=301,L]

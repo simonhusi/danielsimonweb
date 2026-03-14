@@ -1,4 +1,4 @@
-﻿const pageParams = new URLSearchParams(window.location.search);
+const pageParams = new URLSearchParams(window.location.search);
 if (pageParams.get("embed") === "1") {
   document.documentElement.classList.add("embed-mode");
   if (document.body) {
@@ -358,8 +358,8 @@ const initRandomBlobWander = () => {
   const allowed = body && (
     body.classList.contains("page-home") ||
     body.classList.contains("page-about") ||
-    body.classList.contains("page-contact") ||
-    body.classList.contains("page-youtube")
+    body.classList.contains("page-youtube") ||
+    body.classList.contains("page-imagicore")
   );
   if (!bgLayer || !allowed) {
     return;
@@ -371,12 +371,26 @@ const initRandomBlobWander = () => {
   field.className = "blob-field";
   bgLayer.prepend(field);
 
-  const palettes = [
-    "radial-gradient(circle at 34% 32%, #0f8d88c9 0%, #0a6662b8 44%, #0a666200 74%)",
-    "radial-gradient(circle at 36% 30%, #0e807bc8 0%, #095a56b5 45%, #095a5600 74%)",
-    "radial-gradient(circle at 32% 34%, #118983c7 0%, #0a5f5bb3 43%, #0a5f5b00 73%)",
-    "radial-gradient(circle at 35% 31%, #0f7b76c6 0%, #095450b2 44%, #09545000 74%)"
-  ];
+  const palettes = body.classList.contains("page-imagicore")
+    ? [
+        "radial-gradient(circle at 34% 32%, #77bef2bf 0%, #4568c0a8 44%, #4568c000 74%)",
+        "radial-gradient(circle at 36% 30%, #8fcdf5b8 0%, #4f72cca8 45%, #4f72cc00 74%)",
+        "radial-gradient(circle at 32% 34%, #5ea9ebb5 0%, #3f5fb9a5 43%, #3f5fb900 73%)",
+        "radial-gradient(circle at 35% 31%, #9ed9f7b0 0%, #4568c09f 44%, #4568c000 74%)"
+      ]
+    : body.classList.contains("page-youtube")
+      ? [
+          "radial-gradient(circle at 34% 32%, #ff1f1fc4 0%, #b30000ad 44%, #b3000000 74%)",
+          "radial-gradient(circle at 36% 30%, #ff4d4dbb 0%, #a00000a8 45%, #a0000000 74%)",
+          "radial-gradient(circle at 32% 34%, #ff3333b8 0%, #8f0000a3 43%, #8f000000 73%)",
+          "radial-gradient(circle at 35% 31%, #ff8080b0 0%, #b300009c 44%, #b3000000 74%)"
+        ]
+      : [
+          "radial-gradient(circle at 34% 32%, #0f8d88c9 0%, #0a6662b8 44%, #0a666200 74%)",
+          "radial-gradient(circle at 36% 30%, #0e807bc8 0%, #095a56b5 45%, #095a5600 74%)",
+          "radial-gradient(circle at 32% 34%, #118983c7 0%, #0a5f5bb3 43%, #0a5f5b00 73%)",
+          "radial-gradient(circle at 35% 31%, #0f7b76c6 0%, #095450b2 44%, #09545000 74%)"
+        ];
 
   const rand = (min, max) => min + Math.random() * (max - min);
   const isMobileMotion =
@@ -690,8 +704,8 @@ const initImagicoreStories = () => {
 
   const storiesRoot = document.querySelector("[data-imagicore-stories]");
   const track = document.getElementById("imagicoreStoryTrack");
-  const empty = document.getElementById("imagicoreStoriesEmpty");
   const pager = document.getElementById("imagicoreStoriesPager");
+  const gallerySection = document.getElementById("imagicore-gallery");
 
   if (!storiesRoot || !track) {
     removePrevHandlers();
@@ -712,6 +726,21 @@ const initImagicoreStories = () => {
   const prevBtn = storiesRoot.querySelector(".stories-nav.prev");
   const nextBtn = storiesRoot.querySelector(".stories-nav.next");
 
+  const syncStoryRailState = (count) => {
+    const hasStories = count > 0;
+    if (gallerySection) {
+      gallerySection.hidden = !hasStories;
+    }
+    if (prevBtn) {
+      prevBtn.hidden = !hasStories || count <= 1;
+    }
+    if (nextBtn) {
+      nextBtn.hidden = !hasStories || count <= 1;
+    }
+    if (pager) {
+      pager.hidden = !hasStories || count <= 1;
+    }
+  };
   const ensureStoryModal = () => {
     let modalEl = document.getElementById("imagicoreStoryModal");
     if (!modalEl) {
@@ -834,6 +863,7 @@ const initImagicoreStories = () => {
 
   const render = (items) => {
     stories = items.slice();
+    syncStoryRailState(stories.length);
     track.innerHTML = "";
 
     stories.forEach((item, index) => {
@@ -1099,15 +1129,15 @@ const initImagicoreStories = () => {
 
   loadBtsItems(existingItems).then((items) => {
     if (!items || items.length === 0) {
-      if (empty) {
-        empty.hidden = false;
+      if (existingItems.length === 0) {
+        render([]);
       }
       return;
     }
     render(items);
   }).catch(() => {
-    if (empty) {
-      empty.hidden = false;
+    if (existingItems.length === 0) {
+      render([]);
     }
   });
 };
@@ -1811,6 +1841,12 @@ initPageDynamicEffects();
   setPageReady();
   refreshBasicUi(window.location.href);
 })();
+
+
+
+
+
+
 
 
 

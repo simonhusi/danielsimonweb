@@ -1,0 +1,557 @@
+body.page-contact {
+  --contact-ink: #eef4f2;
+  --contact-muted: #a4b7b3;
+  background:
+    radial-gradient(circle at 14% 8%, rgba(27, 136, 129, 0.22) 0%, transparent 30%),
+    radial-gradient(circle at 86% 4%, rgba(10, 84, 79, 0.18) 0%, transparent 32%),
+    linear-gradient(160deg, #071211 0%, #050807 58%, #071110 100%);
+}
+
+body.page-contact .bg-layer {
+  background:
+    linear-gradient(to bottom, rgba(3, 8, 8, 0.74), rgba(2, 5, 5, 0.9)),
+    linear-gradient(180deg, rgba(9, 25, 24, 0.35), rgba(5, 12, 11, 0.2));
+}
+
+body.page-contact .bg-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(27, 121, 116, 0.2) 0%, transparent 38%),
+    radial-gradient(circle at 78% 78%, rgba(18, 70, 67, 0.16) 0%, transparent 42%);
+  pointer-events: none;
+}
+
+body.page-contact .bg-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0));
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+body.page-contact .topbar {
+  background: rgba(5, 17, 16, 0.9);
+  border-bottom: 1px solid #153f3c;
+  backdrop-filter: blur(12px);
+}
+
+body.page-contact .brand {
+  letter-spacing: 0.09em;
+}
+
+body.page-contact .topbar nav a,
+body.page-contact .topbar nav .nav-dropdown > a {
+  color: #b8c8c5;
+}
+
+body.page-contact .topbar nav a:hover,
+body.page-contact .topbar nav a.active,
+body.page-contact .topbar nav .nav-dropdown > a:hover,
+body.page-contact .topbar nav .nav-dropdown > a.active {
+  color: var(--contact-ink);
+  border-color: #215955;
+  background: #0a2220;
+}
+
+body.page-contact .topbar .nav-submenu {
+  border-color: #215955;
+  background: rgba(7, 23, 21, 0.97);
+}
+
+body.page-contact .topbar.has-mobile-menu > nav .nav-social-link {
+  border-color: #215955;
+  background: #081a19;
+}
+
+body.page-contact .topbar.has-mobile-menu > nav .nav-social-icon {
+  background-color: #96d5cf;
+}
+
+body.page-contact main {
+  position: relative;
+  width: min(1240px, 94vw);
+}
+
+body.page-contact main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 16%, rgba(13, 161, 157, 0.14) 0 2px, transparent 3px),
+    radial-gradient(circle at 84% 26%, rgba(11, 122, 115, 0.12) 0 2px, transparent 3px),
+    radial-gradient(circle at 34% 74%, rgba(31, 95, 92, 0.1) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 82%, rgba(20, 87, 83, 0.08) 0 1px, transparent 2px);
+}
+
+body.page-contact main > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.page-contact .page-hero {
+  width: min(1180px, calc(100% - 3.8rem));
+  margin: 0 auto;
+  padding: 3.2rem 0 1.25rem;
+}
+
+body.page-contact .page-hero h1 {
+  max-width: 10ch;
+  color: #f5f8f7;
+  letter-spacing: -0.055em;
+}
+
+body.page-contact .eyebrow {
+  color: #9fd1cb;
+}
+
+body.page-contact .page-hero .section-lead {
+  max-width: 28ch;
+  color: var(--contact-muted);
+}
+
+body.page-contact footer {
+  border-top: 1px solid #143a38;
+  color: #8ea19d;
+}
+
+body.page-contact .contact-gates {
+  width: min(1180px, calc(100% - 3.8rem));
+  margin: 0 auto 5rem;
+  display: grid;
+  gap: 1.45rem;
+}
+
+body.page-contact .contact-gate {
+  --gate-bg: linear-gradient(115deg, #f4f6f8 0%, #e2e8ee 52%, #d0d9e3 100%);
+  --gate-border: rgba(255, 255, 255, 0.34);
+  --gate-meta: #54706d;
+  --gate-title: #153130;
+  --gate-lead: #2a4c4b;
+  --gate-note: rgba(42, 76, 75, 0.8);
+  --gate-chip-bg: rgba(255, 255, 255, 0.9);
+  --gate-chip-line: rgba(82, 112, 110, 0.14);
+  --gate-chip-ink: #244746;
+  --gate-chip-shadow: 0 10px 22px rgba(44, 74, 71, 0.08);
+  --gate-button-bg: rgba(255, 255, 255, 0.92);
+  --gate-button-line: rgba(82, 112, 110, 0.16);
+  --gate-button-ink: #183332;
+  --gate-button-shadow: 0 14px 26px rgba(44, 74, 71, 0.1);
+  --gate-panel-a: rgba(255, 255, 255, 0.72);
+  --gate-panel-b: rgba(255, 255, 255, 0.48);
+  --gate-panel-c: rgba(255, 255, 255, 0.18);
+  --gate-panel-line: rgba(255, 255, 255, 0.34);
+  --gate-panel-shadow: rgba(18, 30, 34, 0.12);
+  --gate-logo: transparent;
+  --gate-visual-glow: radial-gradient(circle at center, rgba(255, 255, 255, 0.36) 0%, rgba(255, 255, 255, 0) 70%);
+  --gate-ambient: radial-gradient(circle at 76% 34%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 34%);
+  --gate-portrait-filter: none;
+  --gate-portrait-blend: normal;
+  --gate-portrait-opacity: 1;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.03fr) minmax(300px, 0.97fr);
+  align-items: stretch;
+  gap: 1.6rem;
+  aspect-ratio: 56 / 19;
+  padding: 1.35rem;
+  border-radius: 34px;
+  overflow: hidden;
+  border: 1px solid var(--gate-border);
+  background: var(--gate-bg);
+  box-shadow: 0 26px 58px rgba(4, 10, 14, 0.18);
+}
+
+body.page-contact .contact-gate::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.14) 24%, rgba(255, 255, 255, 0) 48%),
+    var(--gate-ambient);
+  pointer-events: none;
+}
+
+body.page-contact .contact-gate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+}
+
+body.page-contact .contact-gate__content,
+body.page-contact .contact-gate__brand,
+body.page-contact .contact-gate__visual {
+  position: relative;
+}
+
+body.page-contact .contact-gate__content,
+body.page-contact .contact-gate__brand {
+  z-index: 3;
+}
+
+body.page-contact .contact-gate__visual {
+  z-index: 2;
+  min-height: 100%;
+  pointer-events: none;
+}
+
+body.page-contact .contact-gate__content {
+  align-self: center;
+  justify-self: start;
+  width: min(30rem, 100%);
+  display: grid;
+  gap: 0.82rem;
+  align-content: start;
+  padding: 1.35rem 1.25rem 1.25rem;
+  border-radius: 26px;
+  background: linear-gradient(135deg, var(--gate-panel-a) 0%, var(--gate-panel-b) 56%, var(--gate-panel-c) 100%);
+  border: 1px solid var(--gate-panel-line);
+  backdrop-filter: blur(16px) saturate(108%);
+  -webkit-backdrop-filter: blur(16px) saturate(108%);
+  box-shadow: 0 18px 36px var(--gate-panel-shadow);
+}
+
+body.page-contact .contact-gate__eyebrow {
+  margin: 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gate-meta);
+}
+
+body.page-contact .contact-gate h2 {
+  margin: 0;
+  color: var(--gate-title);
+  font-size: clamp(2.2rem, 3.4vw, 4rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+
+body.page-contact .contact-gate__lead,
+body.page-contact .contact-gate__note {
+  margin: 0;
+  max-width: 28ch;
+}
+
+body.page-contact .contact-gate__lead {
+  color: var(--gate-lead);
+  font-size: 1rem;
+  line-height: 1.56;
+}
+
+body.page-contact .contact-gate__note {
+  color: var(--gate-note);
+  font-size: 0.94rem;
+  line-height: 1.58;
+}
+
+body.page-contact .contact-gate__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.72rem;
+  margin-top: 0.05rem;
+}
+
+body.page-contact .contact-chip,
+body.page-contact .contact-gate__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 3.05rem;
+  padding: 0.82rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--gate-button-line);
+  text-decoration: none;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+body.page-contact .contact-chip:hover,
+body.page-contact .contact-gate__button:hover {
+  transform: translateY(-1px);
+}
+
+body.page-contact .contact-chip {
+  font-size: 0.95rem;
+  border-color: var(--gate-chip-line);
+  background: var(--gate-chip-bg);
+  color: var(--gate-chip-ink);
+  box-shadow: var(--gate-chip-shadow);
+}
+
+body.page-contact .contact-gate__button {
+  margin-top: 0.1rem;
+  font-size: 1rem;
+  background: var(--gate-button-bg);
+  color: var(--gate-button-ink);
+  box-shadow: var(--gate-button-shadow);
+}
+
+body.page-contact .contact-gate__visual::before {
+  content: "";
+  position: absolute;
+  right: 0.25rem;
+  bottom: 0.4rem;
+  width: clamp(14rem, 21vw, 19rem);
+  aspect-ratio: 1;
+  background: var(--gate-visual-glow);
+  filter: blur(10px);
+  opacity: 0.86;
+}
+
+body.page-contact .contact-gate__logo {
+  position: absolute;
+  top: 50%;
+  right: clamp(2rem, 7vw, 6rem);
+  transform: translateY(-50%);
+  width: clamp(18rem, 29vw, 27rem);
+  aspect-ratio: 1 / 1;
+  opacity: 0.22;
+  background: var(--gate-logo);
+  -webkit-mask: url("/assets/images/imagicore/ic logo black white.svg") no-repeat center / contain;
+  mask: url("/assets/images/imagicore/ic logo black white.svg") no-repeat center / contain;
+}
+
+body.page-contact .contact-gate__portrait {
+  position: absolute;
+  right: 0.3rem;
+  bottom: -0.45rem;
+  max-width: none;
+  height: auto;
+  filter: var(--gate-portrait-filter);
+  mix-blend-mode: var(--gate-portrait-blend);
+  opacity: var(--gate-portrait-opacity);
+}
+
+body.page-contact .contact-gate__portrait--kobe {
+  width: clamp(17rem, 26vw, 21.5rem);
+}
+
+body.page-contact .contact-gate__portrait--daniel {
+  width: clamp(16rem, 24vw, 20rem);
+}
+
+body.page-contact .contact-gate--imagicore {
+  --gate-bg:
+    radial-gradient(circle at 76% 16%, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0) 24%),
+    radial-gradient(circle at 79% 70%, rgba(93, 147, 220, 0.22) 0%, rgba(93, 147, 220, 0) 38%),
+    linear-gradient(112deg, #edf5ff 0%, #d7e9ff 34%, #b9d6fb 63%, #9dc4f1 100%);
+  --gate-border: rgba(124, 164, 215, 0.3);
+  --gate-meta: #496f9f;
+  --gate-title: #1b4a82;
+  --gate-lead: #2d5b8f;
+  --gate-note: rgba(49, 79, 117, 0.82);
+  --gate-chip-line: rgba(102, 146, 203, 0.18);
+  --gate-chip-ink: #284d7c;
+  --gate-chip-shadow: 0 10px 22px rgba(72, 110, 168, 0.1);
+  --gate-button-bg: linear-gradient(135deg, #6ba2eb 0%, #4d7dc4 100%);
+  --gate-button-line: transparent;
+  --gate-button-ink: #ffffff;
+  --gate-button-shadow: 0 16px 28px rgba(75, 117, 183, 0.16);
+  --gate-panel-a: rgba(255, 255, 255, 0.76);
+  --gate-panel-b: rgba(255, 255, 255, 0.52);
+  --gate-panel-c: rgba(255, 255, 255, 0.16);
+  --gate-panel-line: rgba(255, 255, 255, 0.4);
+  --gate-panel-shadow: rgba(56, 92, 144, 0.14);
+  --gate-logo: #427bc8;
+  --gate-visual-glow: radial-gradient(circle at center, rgba(255, 255, 255, 0.42) 0%, rgba(165, 204, 255, 0.24) 44%, rgba(165, 204, 255, 0) 74%);
+  --gate-ambient: radial-gradient(circle at 82% 28%, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0) 30%);
+  --gate-portrait-filter: brightness(1.03) contrast(1.03) saturate(0.94) drop-shadow(0 1.55rem 2.6rem rgba(39, 62, 95, 0.16));
+  --gate-portrait-blend: multiply;
+  --gate-portrait-opacity: 0.92;
+}
+
+body.page-contact .contact-gate--personal {
+  --gate-bg:
+    radial-gradient(circle at 80% 18%, rgba(255, 255, 255, 0.54) 0%, rgba(255, 255, 255, 0) 22%),
+    radial-gradient(circle at 78% 74%, rgba(132, 196, 184, 0.22) 0%, rgba(132, 196, 184, 0) 38%),
+    linear-gradient(112deg, #eff9f6 0%, #daeee8 34%, #c7e2dc 63%, #b5d7cf 100%);
+  --gate-border: rgba(116, 154, 147, 0.26);
+  --gate-meta: #5b837e;
+  --gate-title: #184541;
+  --gate-lead: #285853;
+  --gate-note: rgba(39, 78, 73, 0.82);
+  --gate-button-bg: rgba(255, 255, 255, 0.86);
+  --gate-button-line: rgba(86, 129, 123, 0.22);
+  --gate-button-ink: #234d48;
+  --gate-button-shadow: 0 12px 24px rgba(67, 106, 101, 0.1);
+  --gate-panel-a: rgba(255, 255, 255, 0.72);
+  --gate-panel-b: rgba(255, 255, 255, 0.46);
+  --gate-panel-c: rgba(255, 255, 255, 0.16);
+  --gate-panel-line: rgba(255, 255, 255, 0.34);
+  --gate-panel-shadow: rgba(42, 84, 80, 0.12);
+  --gate-visual-glow: radial-gradient(circle at center, rgba(255, 255, 255, 0.34) 0%, rgba(169, 222, 214, 0.24) 44%, rgba(169, 222, 214, 0) 74%);
+  --gate-ambient: radial-gradient(circle at 78% 36%, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0) 34%);
+  --gate-portrait-filter: brightness(1.01) contrast(1.03) saturate(0.78) drop-shadow(0 1.35rem 2.2rem rgba(44, 77, 74, 0.14));
+  --gate-portrait-blend: multiply;
+  --gate-portrait-opacity: 0.9;
+}
+
+body.page-contact .contact-gate--wedding {
+  grid-template-columns: minmax(0, 1.06fr) minmax(320px, 0.84fr);
+  gap: 1.4rem;
+  --gate-bg:
+    radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.62) 0%, rgba(255, 255, 255, 0) 24%),
+    radial-gradient(circle at 64% 54%, rgba(223, 195, 162, 0.14) 0%, rgba(223, 195, 162, 0) 42%),
+    linear-gradient(112deg, #fffcf8 0%, #f7efe5 36%, #efe4d7 66%, #e8dbc9 100%);
+  --gate-border: rgba(209, 190, 170, 0.42);
+  --gate-meta: #9b7b5d;
+  --gate-title: #563b28;
+  --gate-lead: #745a47;
+  --gate-note: rgba(111, 88, 68, 0.8);
+  --gate-button-bg: linear-gradient(135deg, #ddb286 0%, #cf9d6e 100%);
+  --gate-button-line: transparent;
+  --gate-button-ink: #362115;
+  --gate-button-shadow: 0 14px 26px rgba(190, 149, 108, 0.14);
+  --gate-panel-a: rgba(255, 252, 247, 0.76);
+  --gate-panel-b: rgba(255, 249, 241, 0.5);
+  --gate-panel-c: rgba(255, 248, 240, 0.18);
+  --gate-panel-line: rgba(255, 251, 246, 0.5);
+  --gate-panel-shadow: rgba(124, 96, 69, 0.1);
+  --gate-ambient: radial-gradient(circle at 62% 50%, rgba(222, 191, 153, 0.12) 0%, rgba(222, 191, 153, 0) 40%);
+  box-shadow: 0 22px 50px rgba(88, 67, 50, 0.1);
+}
+
+body.page-contact .contact-gate--wedding::after {
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  left: 58%;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(189, 159, 126, 0) 0%, rgba(189, 159, 126, 0.28) 24%, rgba(189, 159, 126, 0.28) 76%, rgba(189, 159, 126, 0) 100%);
+  box-shadow: none;
+  pointer-events: none;
+}
+
+body.page-contact .contact-gate__brand {
+  align-self: center;
+  display: grid;
+  gap: 0.7rem;
+  padding: 0 1rem 0 0.6rem;
+  max-width: 34rem;
+}
+
+body.page-contact .contact-gate__brand-title {
+  color: #bb926a;
+  font-family: "Times New Roman", serif;
+  font-size: clamp(3rem, 5.8vw, 5.2rem);
+  line-height: 0.86;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  max-width: 8ch;
+}
+
+body.page-contact .contact-gate__brand-note {
+  color: #a88869;
+  font-size: 0.74rem;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+body.page-contact .contact-gate--wedding .contact-gate__content {
+  justify-self: end;
+  width: min(23rem, 100%);
+}
+
+@media (max-width: 1080px) {
+  body.page-contact .contact-gate {
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 0.84fr);
+    gap: 1.2rem;
+    aspect-ratio: 44 / 17;
+  }
+
+  body.page-contact .contact-gate__content {
+    width: min(27rem, 100%);
+  }
+
+  body.page-contact .contact-gate--wedding {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+  }
+
+  body.page-contact .contact-gate--wedding::after {
+    left: 56%;
+  }
+}
+
+@media (max-width: 900px) {
+  body.page-contact main {
+    width: min(100%, 100vw);
+  }
+
+  body.page-contact .page-hero,
+  body.page-contact .contact-gates {
+    width: min(100%, calc(100% - 2rem));
+  }
+
+  body.page-contact .contact-gate,
+  body.page-contact .contact-gate--wedding {
+    grid-template-columns: 1fr;
+    aspect-ratio: 5 / 6;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  body.page-contact .contact-gate--wedding::after {
+    content: none;
+  }
+
+  body.page-contact .contact-gate__content,
+  body.page-contact .contact-gate--wedding .contact-gate__content,
+  body.page-contact .contact-gate__brand {
+    width: 100%;
+    max-width: 100%;
+    justify-self: stretch;
+    padding-right: 0;
+  }
+
+  body.page-contact .contact-gate h2 {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  body.page-contact .contact-gate__lead,
+  body.page-contact .contact-gate__note {
+    max-width: 100%;
+  }
+
+  body.page-contact .contact-gate__visual {
+    min-height: 0;
+  }
+
+  body.page-contact .contact-gate__logo {
+    right: 0.4rem;
+    width: clamp(12rem, 46vw, 16rem);
+    opacity: 0.2;
+  }
+
+  body.page-contact .contact-gate__portrait--kobe,
+  body.page-contact .contact-gate__portrait--daniel {
+    width: clamp(10rem, 44vw, 14rem);
+    opacity: 0.6;
+  }
+
+  body.page-contact .contact-gate__brand {
+    padding: 0.25rem 0.2rem 0;
+  }
+
+  body.page-contact .contact-gate__brand-title {
+    font-size: clamp(2.2rem, 11vw, 3.3rem);
+    max-width: 100%;
+  }
+
+  body.page-contact .contact-gate__button,
+  body.page-contact .contact-chip {
+    min-height: 2.85rem;
+    padding: 0.78rem 1.05rem;
+  }
+}
