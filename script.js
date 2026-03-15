@@ -31,6 +31,20 @@ if (yearEl) {
   }
 
   topbar.classList.add("has-mobile-menu");
+  const isImagicoreHost = /(^|\.)imagicore\.hu$/i.test(window.location.hostname);
+  const mainSiteOrigin = "https://danielsimon.hu";
+  const toSiteHref = (path) => {
+    const normalizedPath = String(path || "/");
+    const absolutePath = normalizedPath.startsWith("/") ? normalizedPath : `/${normalizedPath}`;
+    if (!isImagicoreHost) {
+      return absolutePath;
+    }
+    if (absolutePath === "/imagicore/") {
+      return "/";
+    }
+    return `${mainSiteOrigin}${absolutePath}`;
+  };
+
 
   const toRootHref = (href) => {
     if (!href) {
@@ -45,33 +59,29 @@ if (yearEl) {
     }
 
     const clean = normalized.replace(/^\.\/?/, "").replace(/^\.\.\//, "").replace(/^\.\.\//, "").replace(/^\.\.\//, "");
+    let resolved;
 
     if (clean.includes("daniel-simon-channel")) {
-      return "/daniel-simon-channel/";
-    }
-    if (clean.includes("aranyasokfelsofokon")) {
-      return "/aranyasokfelsofokon/";
-    }
-    if (clean.endsWith("index.html") || clean === "index.html") {
-      return "/";
-    }
-    if (clean.includes("imagicore.html") || clean === "imagicore" || clean.startsWith("imagicore/")) {
-      return "/imagicore/";
-    }
-    if (clean.includes("youtube.html") || clean === "youtube" || clean.startsWith("youtube/")) {
-      return "/youtube/";
-    }
-    if (clean.includes("rolam.html") || clean === "rolam" || clean.startsWith("rolam/")) {
-      return "/rolam/";
-    }
-    if (clean.includes("kapcsolat.html") || clean === "kapcsolat" || clean.startsWith("kapcsolat/")) {
-      return "/kapcsolat/";
+      resolved = "/daniel-simon-channel/";
+    } else if (clean.includes("aranyasokfelsofokon")) {
+      resolved = "/aranyasokfelsofokon/";
+    } else if (clean.endsWith("index.html") || clean === "index.html") {
+      resolved = "/";
+    } else if (clean.includes("imagicore.html") || clean === "imagicore" || clean.startsWith("imagicore/")) {
+      resolved = "/imagicore/";
+    } else if (clean.includes("youtube.html") || clean === "youtube" || clean.startsWith("youtube/")) {
+      resolved = "/youtube/";
+    } else if (clean.includes("rolam.html") || clean === "rolam" || clean.startsWith("rolam/")) {
+      resolved = "/rolam/";
+    } else if (clean.includes("kapcsolat.html") || clean === "kapcsolat" || clean.startsWith("kapcsolat/")) {
+      resolved = "/kapcsolat/";
+    } else if (clean.startsWith("/")) {
+      resolved = clean;
+    } else {
+      resolved = `/${clean}`;
     }
 
-    if (clean.startsWith("/")) {
-      return clean;
-    }
-    return `/${clean}`;
+    return toSiteHref(resolved);
   };
 
   nav.querySelectorAll("a[href]").forEach((a) => {
@@ -139,7 +149,7 @@ if (yearEl) {
       { label: "jogi nyilatkozat", href: "/jogi-nyilatkozat/" }
     ].forEach((entry) => {
       const item = document.createElement("a");
-      item.href = entry.href;
+      item.href = toSiteHref(entry.href);
       item.textContent = entry.label;
       links.appendChild(item);
     });

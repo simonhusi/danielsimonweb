@@ -1,4 +1,22 @@
 RewriteEngine On
 
+RewriteCond %{HTTP_HOST} ^(www\.)?paradoxonstudio\.hu$ [NC]
+RewriteRule ^ https://danielsimon.hu%{REQUEST_URI} [R=301,L,NE]
+
+RewriteCond %{HTTP_HOST} ^(www\.)?imagicore\.hu$ [NC]
+RewriteCond %{THE_REQUEST} \s/+imagicore(?:/(?:index\.html?)?)?[\s?] [NC]
+RewriteRule ^imagicore(?:/(?:index\.html?)?)?$ https://imagicore.hu/ [R=301,L,NE]
+
+RewriteCond %{HTTP_HOST} ^(www\.)?imagicore\.hu$ [NC]
+RewriteCond %{REQUEST_URI} !^/$
+RewriteCond %{REQUEST_URI} !^/imagicore(?:/(?:index\.html?)?)?$ [NC]
+RewriteCond %{REQUEST_URI} !^/assets/ [NC]
+RewriteCond %{REQUEST_URI} !^/script\.js$ [NC]
+RewriteCond %{REQUEST_URI} !^/favicon\.svg$ [NC]
+RewriteRule ^ https://danielsimon.hu%{REQUEST_URI} [R=301,L,NE]
+
+RewriteCond %{HTTP_HOST} ^(www\.)?imagicore\.hu$ [NC]
+RewriteRule ^$ /imagicore/ [L]
+
 RewriteRule ^about-me/?$ /rolam/ [R=301,L]
 RewriteRule ^contact/?$ /kapcsolat/ [R=301,L]
