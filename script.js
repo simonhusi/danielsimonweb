@@ -1,4 +1,4 @@
-﻿const pageParams = new URLSearchParams(window.location.search);
+const pageParams = new URLSearchParams(window.location.search);
 if (pageParams.get("embed") === "1") {
   document.documentElement.classList.add("embed-mode");
   if (document.body) {
@@ -1909,16 +1909,22 @@ const initPageDynamicEffects = () => {
       }
 
       if (treasurePaper) {
-        treasurePaper.style.transform = `translate3d(0, ${Math.round(window.scrollY * -0.13)}px, 0)`;
+        const paperOffset = Math.round(window.scrollY * -0.13);
+        treasurePaper.style.transform = "none";
+        treasurePaper.style.backgroundPosition = `center ${paperOffset}px`;
       }
       if (treasureFront2) {
-        treasureFront2.style.transform = `translate3d(0, ${Math.round(window.scrollY * 0.11)}px, 0)`;
+        const front2Offset = Math.round(window.scrollY * 0.11);
+        treasureFront2.style.transform = "none";
+        treasureFront2.style.backgroundPosition = `center ${front2Offset}px`;
       }
       if (treasureRoute) {
         treasureRoute.style.transform = `translate3d(0, ${Math.round(window.scrollY * -0.14)}px, 0)`;
       }
       if (treasureFront3) {
-        treasureFront3.style.transform = `translate3d(0, ${Math.round(window.scrollY * 0.2)}px, 0)`;
+        const front3Offset = Math.round(window.scrollY * 0.2);
+        treasureFront3.style.transform = "none";
+        treasureFront3.style.backgroundPosition = `center ${front3Offset}px`;
       }
 
       tickingTreasure = false;
@@ -2064,198 +2070,187 @@ const initPageDynamicEffects = () => {
 
 initPageDynamicEffects();
 
-(() => {
-  const modal = document.getElementById("projectModal");
-  const frame = document.getElementById("projectModalFrame");
-  const titleEl = document.getElementById("projectModalTitle");
-  const closeBtn = modal ? modal.querySelector("[data-modal-close]") : null;
-
-  if (!modal || !frame || !titleEl) {
+const initLatestYoutubeWidgets = () => {
+  const widgets = Array.from(document.querySelectorAll(".af-youtube-widget"));
+  const body = document.body;
+  if (!body || widgets.length === 0) {
     return;
   }
 
-  let lastTrigger = null;
-  let modalBaseScrollY = 0;
+  const rawHandle = String(body.dataset.ytHandle || "").trim();
+  const handle = rawHandle.replace(/^@/, "");
+  const channelId = String(body.dataset.ytChannelId || "").trim();
+  const latestVideoId = String(body.dataset.ytLatestVideoId || "").trim();
+  const uploadsPlaylistId = /^UC[\w-]+$/.test(channelId) ? `UU${channelId.slice(2)}` : "";
+  const channelUrl = handle
+    ? `https://www.youtube.com/@${handle}`
+    : channelId
+      ? `https://www.youtube.com/channel/${channelId}`
+      : "https://www.youtube.com/";
 
-  const applyFrameScroll = (ratio) => {
-    if (!Number.isFinite(ratio) || ratio <= 0) {
+  let embedSrc = "";
+  let latestHref = channelUrl;
+  let statusText = "Mindig a legfrissebb felt\u00F6lt\u00E9s a csatorn\u00E1r\u00F3l.";
+
+  if (/^[\w-]{11}$/.test(latestVideoId)) {
+    embedSrc = `https://www.youtube.com/embed/${encodeURIComponent(latestVideoId)}?rel=0&modestbranding=1&playsinline=1`;
+    latestHref = `https://www.youtube.com/watch?v=${encodeURIComponent(latestVideoId)}`;
+    statusText = "A legfrissebb publikus felt\u00F6lt\u00E9s a csatorn\u00E1r\u00F3l.";
+  } else if (uploadsPlaylistId) {
+    embedSrc = `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(uploadsPlaylistId)}&rel=0&modestbranding=1&playsinline=1`;
+  } else if (handle) {
+    embedSrc = `https://www.youtube.com/embed?listType=user_uploads&list=${encodeURIComponent(handle)}&rel=0&modestbranding=1&playsinline=1`;
+  }
+
+  if (!embedSrc) {
+    return;
+  }
+
+  widgets.forEach((widget, index) => {
+    const frameWrap = widget.querySelector(".af-youtube-widget__frame-wrap");
+    const status = widget.querySelector(".af-youtube-widget__status");
+    const actionLink = widget.querySelector(".af-youtube-widget__header .btn");
+    const coverLink = frameWrap ? frameWrap.querySelector(".af-youtube-widget__cover-link") : null;
+    if (!frameWrap) {
       return;
     }
 
-    try {
-      const win = frame.contentWindow;
-      if (!win) {
-        return;
-      }
-
-      const align = () => {
-        const doc = win.document;
-        const scroller = doc.scrollingElement || doc.documentElement;
-        if (!scroller) {
-          return;
-        }
-        const max = Math.max(0, scroller.scrollHeight - win.innerHeight);
-        scroller.scrollTop = Math.round(max * Math.min(1, Math.max(0, ratio)));
-      };
-
-      align();
-      window.setTimeout(align, 140);
-      window.setTimeout(align, 420);
-    } catch {
-      // ignore cross-origin errors
+    if (actionLink) {
+      actionLink.href = latestHref;
     }
-  };
-
-  const detachFrameScrollSync = () => {
-    if (typeof frame.__detachScrollSync === "function") {
-      frame.__detachScrollSync();
-      frame.__detachScrollSync = null;
+    if (coverLink) {
+      coverLink.href = latestHref;
+      coverLink.setAttribute("aria-label", "Legfrissebb YouTube vide\u00F3 megnyit\u00E1sa");
     }
-    if (frame.__pageSyncRaf) {
-      window.cancelAnimationFrame(frame.__pageSyncRaf);
-      frame.__pageSyncRaf = null;
-    }
-  };
 
-  const openModal = (trigger) => {
-    const href = trigger.getAttribute("href");
-    if (!href) {
+    let frame = frameWrap.querySelector("iframe");
+    if (!frame) {
+      frameWrap.innerHTML = "";
+      frame = document.createElement("iframe");
+      frame.id = widget.id ? `${widget.id}LatestVideoFrame` : `latestVideoFrame${index}`;
+      frame.title = `${document.title} YouTube vide\u00F3k`;
+      frame.loading = "lazy";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      frame.allowFullscreen = true;
+      frameWrap.appendChild(frame);
+    }
+
+    frame.src = embedSrc;
+
+    if (status) {
+      status.textContent = statusText;
+    }
+  });
+};
+
+initLatestYoutubeWidgets();
+
+const initInlineYoutubeCards = () => {
+  const cards = Array.from(document.querySelectorAll("[data-inline-video]"));
+
+  if (cards.length === 0) {
+    return;
+  }
+
+  const activateCard = (card) => {
+    if (!card || card.dataset.videoLoaded === "true") {
       return;
     }
 
-    lastTrigger = trigger;
-    titleEl.textContent = trigger.getAttribute("data-popup-title") || trigger.textContent.trim() || "Projekt";
+    const videoId = String(card.dataset.videoId || "").trim();
+    const videoTitle = String(card.dataset.videoTitle || document.title).trim();
 
-    const separator = href.includes("?") ? "&" : "?";
-    const root = document.scrollingElement || document.documentElement;
-    const max = Math.max(1, root.scrollHeight - window.innerHeight);
-    const scrollRatio = Math.min(1, Math.max(0, window.scrollY / max));
-    frame.dataset.scrollRatio = scrollRatio.toFixed(4);
-    frame.src = `${href}${separator}embed=1&scroll=${scrollRatio.toFixed(4)}`;
+    if (!/^[\w-]{11}$/.test(videoId)) {
+      return;
+    }
 
-    modalBaseScrollY = window.scrollY;
-    modal.style.setProperty("--modal-parallax-y", "0px");
+    card.dataset.videoLoaded = "true";
+    card.classList.add("is-playing");
+    card.innerHTML = "";
 
-    modal.hidden = false;
-    modal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("modal-open");
+    const frame = document.createElement("iframe");
+    frame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+    frame.title = videoTitle;
+    frame.loading = "lazy";
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    frame.allowFullscreen = true;
+    card.appendChild(frame);
+  };
 
-    window.requestAnimationFrame(() => {
-      modal.classList.add("is-open");
-      if (closeBtn) {
-        closeBtn.focus();
+  cards.forEach((card) => {
+    const trigger = card.querySelector(".ds-feature-media__launch");
+    if (!trigger) {
+      return;
+    }
+
+    trigger.addEventListener("click", () => activateCard(card));
+  });
+};
+
+initInlineYoutubeCards();
+(() => {
+  const cards = Array.from(document.querySelectorAll("[data-project-card]"));
+
+  if (cards.length === 0) {
+    return;
+  }
+
+  const closeCard = (card) => {
+    const trigger = card.querySelector("[data-project-toggle]");
+    const details = card.querySelector("[data-project-details]");
+
+    card.classList.remove("is-open");
+    if (trigger) {
+      trigger.setAttribute("aria-expanded", "false");
+    }
+    if (details) {
+      details.hidden = true;
+    }
+  };
+
+  const openCard = (card, options = {}) => {
+    const trigger = card.querySelector("[data-project-toggle]");
+    const details = card.querySelector("[data-project-details]");
+    const shouldScroll = Boolean(options.scroll);
+
+    if (!trigger || !details) {
+      return;
+    }
+
+    cards.forEach((item) => {
+      if (item !== card) {
+        closeCard(item);
       }
     });
-  };
 
-  const closeModal = () => {
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("modal-open");
-    detachFrameScrollSync();
+    card.classList.add("is-open");
+    trigger.setAttribute("aria-expanded", "true");
+    details.hidden = false;
 
-    window.setTimeout(() => {
-      modal.hidden = true;
-      frame.src = "about:blank";
-      modal.style.setProperty("--modal-parallax-y", "0px");
-      if (lastTrigger && typeof lastTrigger.focus === "function") {
-        lastTrigger.focus();
-      }
-    }, 220);
-  };
-
-  frame.addEventListener("load", () => {
-    const ratio = Number(frame.dataset.scrollRatio || "0");
-    applyFrameScroll(ratio);
-
-    detachFrameScrollSync();
-
-    try {
-      const win = frame.contentWindow;
-      const doc = frame.contentDocument;
-      if (!win || !doc) {
-        return;
-      }
-
-      const frameScroller = doc.scrollingElement || doc.documentElement || doc.body;
-      if (!frameScroller) {
-        return;
-      }
-
-      let pending = false;
-      const syncBackgroundToFrame = () => {
-        if (modal.hidden) {
-          return;
-        }
-
-        const pageScroller = document.scrollingElement || document.documentElement;
-        const frameMax = Math.max(1, frameScroller.scrollHeight - win.innerHeight);
-        const frameRatio = Math.min(1, Math.max(0, frameScroller.scrollTop / frameMax));
-        const pageMax = Math.max(1, pageScroller.scrollHeight - window.innerHeight);
-        const targetY = frameRatio * pageMax;
-
-        if (Math.abs(targetY - window.scrollY) < 1) {
-          return;
-        }
-
-        if (frame.__pageSyncRaf) {
-          window.cancelAnimationFrame(frame.__pageSyncRaf);
-        }
-        frame.__pageSyncRaf = window.requestAnimationFrame(() => {
-          window.scrollTo({ top: targetY, left: 0, behavior: "auto" });
-          frame.__pageSyncRaf = null;
-        });
-      };
-
-      const onFrameScroll = () => {
-        if (pending) {
-          return;
-        }
-        pending = true;
-        window.requestAnimationFrame(() => {
-          pending = false;
-          syncBackgroundToFrame();
-        });
-      };
-
-      win.addEventListener("scroll", onFrameScroll, { passive: true });
-      frame.__detachScrollSync = () => {
-        win.removeEventListener("scroll", onFrameScroll);
-      };
-    } catch {
-      // ignore cross-origin errors
+    if (shouldScroll && window.matchMedia("(max-width: 900px)").matches) {
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-  });
+  };
 
-  document.addEventListener("click", (event) => {
-    const link = event.target && event.target.closest ? event.target.closest("a[data-popup-page]") : null;
-    if (!link) {
+  cards.forEach((card) => {
+    const trigger = card.querySelector("[data-project-toggle]");
+    const details = card.querySelector("[data-project-details]");
+
+    if (!trigger || !details) {
       return;
     }
 
-    event.preventDefault();
-    openModal(link);
-  }, false);
+    closeCard(card);
 
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal || (event.target && event.target.closest("[data-modal-close]"))) {
-      closeModal();
-    }
-  });
-
-  window.addEventListener("scroll", () => {
-    if (modal.hidden) {
-      return;
-    }
-    const delta = window.scrollY - modalBaseScrollY;
-    const shift = Math.max(-56, Math.min(56, delta * 0.18));
-    modal.style.setProperty("--modal-parallax-y", `${shift.toFixed(1)}px`);
-  }, { passive: true });
-
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !modal.hidden) {
-      closeModal();
-    }
+    trigger.addEventListener("click", () => {
+      const willOpen = !card.classList.contains("is-open");
+      cards.forEach(closeCard);
+      if (willOpen) {
+        openCard(card, { scroll: true });
+      }
+    });
   });
 })();
 
@@ -2475,10 +2470,6 @@ initPageDynamicEffects();
     }
 
     if (anchor.target && anchor.target.toLowerCase() === "_blank") {
-      return false;
-    }
-
-    if (anchor.hasAttribute("data-popup-page")) {
       return false;
     }
 
