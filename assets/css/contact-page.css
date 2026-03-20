@@ -313,10 +313,11 @@ body.page-contact .contact-gate__logo {
   position: absolute;
   top: 50%;
   right: clamp(2rem, 7vw, 6rem);
+  z-index: 0;
   transform: translateY(-50%);
   width: clamp(18rem, 29vw, 27rem);
   aspect-ratio: 1 / 1;
-  opacity: 0.22;
+  opacity: 0.16;
   background: var(--gate-logo);
   -webkit-mask: url("/assets/images/imagicore/ic logo black white.svg") no-repeat center / contain;
   mask: url("/assets/images/imagicore/ic logo black white.svg") no-repeat center / contain;
@@ -326,6 +327,7 @@ body.page-contact .contact-gate__portrait {
   position: absolute;
   right: 0.3rem;
   bottom: -0.45rem;
+  z-index: 1;
   max-width: none;
   height: auto;
   filter: var(--gate-portrait-filter);
@@ -338,7 +340,9 @@ body.page-contact .contact-gate__portrait--kobe {
 }
 
 body.page-contact .contact-gate__portrait--daniel {
-  width: clamp(16rem, 24vw, 20rem);
+  width: clamp(19rem, 28vw, 24rem);
+  right: 0;
+  bottom: -0.2rem;
 }
 
 body.page-contact .contact-gate--imagicore {
@@ -366,9 +370,9 @@ body.page-contact .contact-gate--imagicore {
   --gate-logo: #427bc8;
   --gate-visual-glow: radial-gradient(circle at center, rgba(255, 255, 255, 0.42) 0%, rgba(165, 204, 255, 0.24) 44%, rgba(165, 204, 255, 0) 74%);
   --gate-ambient: radial-gradient(circle at 82% 28%, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0) 30%);
-  --gate-portrait-filter: brightness(1.03) contrast(1.03) saturate(0.94) drop-shadow(0 1.55rem 2.6rem rgba(39, 62, 95, 0.16));
-  --gate-portrait-blend: multiply;
-  --gate-portrait-opacity: 0.92;
+  --gate-portrait-filter: brightness(1.02) contrast(1.02) saturate(0.98) drop-shadow(0 1.55rem 2.6rem rgba(39, 62, 95, 0.14));
+  --gate-portrait-blend: normal;
+  --gate-portrait-opacity: 1;
 }
 
 body.page-contact .contact-gate--personal {
@@ -392,9 +396,9 @@ body.page-contact .contact-gate--personal {
   --gate-panel-shadow: rgba(42, 84, 80, 0.12);
   --gate-visual-glow: radial-gradient(circle at center, rgba(255, 255, 255, 0.34) 0%, rgba(169, 222, 214, 0.24) 44%, rgba(169, 222, 214, 0) 74%);
   --gate-ambient: radial-gradient(circle at 78% 36%, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0) 34%);
-  --gate-portrait-filter: brightness(1.01) contrast(1.03) saturate(0.78) drop-shadow(0 1.35rem 2.2rem rgba(44, 77, 74, 0.14));
-  --gate-portrait-blend: multiply;
-  --gate-portrait-opacity: 0.9;
+  --gate-portrait-filter: brightness(1.01) contrast(1.03) saturate(0.86) drop-shadow(0 1.35rem 2.2rem rgba(44, 77, 74, 0.14));
+  --gate-portrait-blend: normal;
+  --gate-portrait-opacity: 0.98;
 }
 
 body.page-contact .contact-gate--wedding {
@@ -529,15 +533,12 @@ body.page-contact .contact-gate--wedding .contact-gate__content {
   }
 
   body.page-contact .contact-gate__logo {
-    right: 0.4rem;
-    width: clamp(12rem, 46vw, 16rem);
-    opacity: 0.2;
+    display: none;
   }
 
   body.page-contact .contact-gate__portrait--kobe,
   body.page-contact .contact-gate__portrait--daniel {
-    width: clamp(10rem, 44vw, 14rem);
-    opacity: 0.6;
+    display: none;
   }
 
   body.page-contact .contact-gate__brand {
