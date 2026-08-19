@@ -184,17 +184,13 @@
           <h3>Legújabb videó</h3>
           <a class="btn btn-youtube-outline" id="afLatestVideoLink" href="https://www.youtube.com/@aranyasokfelsofokon" target="_blank" rel="noopener noreferrer">Megnyitás YouTube-on</a>
         </div>
-        <p class="af-youtube-widget__status" id="afYoutubeStatus">Közvetlen YouTube beágyazás.</p>
+        <p class="af-youtube-widget__status" id="afYoutubeStatus">Mindig a legfrissebb feltöltés a csatornáról.</p>
         <div class="af-youtube-widget__frame-wrap">
-          <iframe
-            id="afLatestVideoFrame"
-            src="https://www.youtube.com/embed/videoseries?list=UUE60YkeFf8nKizolRnG2lqg&rel=0&modestbranding=1"
-            title="Aranyásók Felsőfokon YouTube videók"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
+          <button type="button" class="yt-consent" data-yt-consent aria-label="Legfrissebb Aranyásók Felsőfokon videó betöltése">
+            <span class="yt-consent__play" aria-hidden="true"></span>
+            <span class="yt-consent__label">Videó betöltése</span>
+            <span class="yt-consent__note">Indításkor a YouTube betöltődik, és technikai adatokat kaphat a látogatásról.</span>
+          </button>
         </div>
       </section>
     </section>

@@ -7693,3 +7693,108 @@ section {
 
 
 
+
+/* Deferred YouTube embeds
+   Every video frame ships this local cover instead of a player. Activating it
+   is what builds the iframe, so a page view never reaches YouTube on its own. */
+.yt-consent {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.62rem;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1.1rem;
+  border: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 42%, #0d1526d6 0%, #05070cec 70%);
+  color: #e8edf5;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.yt-consent__play {
+  position: relative;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  border: 1px solid #ffffff3d;
+  background: #101a2c8a;
+  backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.yt-consent__play::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid #f2f6fb;
+  transform: translate(-32%, -50%);
+}
+
+.yt-consent__label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.yt-consent__note {
+  max-width: 40ch;
+  color: #b9c3d4;
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+
+.yt-consent:hover .yt-consent__play,
+.yt-consent:focus-visible .yt-consent__play {
+  transform: scale(1.06);
+  border-color: #ffffff75;
+}
+
+.yt-consent:focus-visible {
+  outline: 2px solid #7dbbff;
+  outline-offset: -3px;
+}
+
+@media (max-width: 620px) {
+  .yt-consent__play {
+    width: 54px;
+    height: 54px;
+  }
+
+  .yt-consent__note {
+    display: none;
+  }
+}
+
+/* The latest-video cover sits behind the placeholder until activation. */
+.af-youtube-widget__frame-wrap .af-youtube-widget__cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  object-fit: cover;
+}
+
+/* The showreel's sound control has nothing to control until a player exists. */
+.showreel-embed-wrap .showreel-audio-toggle {
+  display: none;
+}
+
+.showreel-embed-wrap.is-playing .showreel-audio-toggle {
+  display: inline-flex;
+}

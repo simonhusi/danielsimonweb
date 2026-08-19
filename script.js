@@ -1086,18 +1086,59 @@ const initImagicorePressMentions = () => {
 };
 
 
-const initImagicoreShowreelAudio = () => {
-  const wrap = document.querySelector(".showreel-embed-wrap");
-  if (!wrap) {
-    return;
+// A page view must never reach YouTube on its own, so every player on the site
+// starts life as a local cover the visitor has to activate. Once they do, the
+// player we build points at YouTube's privacy-enhanced host instead of the
+// cookie-setting one.
+const YOUTUBE_EMBED_HOST = "https://www.youtube-nocookie.com";
+const YOUTUBE_CONSENT_LABEL = "Vide\u00F3 bet\u00F6lt\u00E9se";
+const YOUTUBE_CONSENT_NOTE = "Ind\u00EDt\u00E1skor a YouTube bet\u00F6lt\u0151dik, \u00E9s technikai adatokat kaphat a l\u00E1togat\u00E1sr\u00F3l.";
+
+// Returns the placeholder inside `container`, building one when the markup did
+// not ship a static cover of its own (dynamically assembled frames).
+const ensureYoutubeConsentButton = (container, accessibleLabel) => {
+  if (!container) {
+    return null;
   }
 
-  const frame = wrap.querySelector(".showreel-embed");
-  const toggle = wrap.querySelector(".showreel-audio-toggle");
-  if (!frame || !toggle) {
-    return;
+  const existing = container.querySelector("[data-yt-consent]");
+  if (existing) {
+    return existing;
   }
 
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "yt-consent";
+  button.setAttribute("data-yt-consent", "");
+  button.setAttribute("aria-label", accessibleLabel || YOUTUBE_CONSENT_LABEL);
+  button.innerHTML =
+    '<span class="yt-consent__play" aria-hidden="true"></span>' +
+    '<span class="yt-consent__label">' + YOUTUBE_CONSENT_LABEL + "</span>" +
+    '<span class="yt-consent__note">' + YOUTUBE_CONSENT_NOTE + "</span>";
+  container.appendChild(button);
+  return button;
+};
+
+// Hands the first activation to `activate`. A real <button> is what makes this
+// keyboard reachable, so click covers Enter and Space for free.
+const bindYoutubeConsent = (button, activate) => {
+  if (!button || button.dataset.ytConsentBound === "1") {
+    return;
+  }
+  button.dataset.ytConsentBound = "1";
+
+  button.addEventListener("click", () => {
+    if (button.dataset.ytConsentUsed === "1") {
+      return;
+    }
+    button.dataset.ytConsentUsed = "1";
+    activate();
+  });
+};
+
+// The showreel's sound button only makes sense once a player exists, so the
+// wiring moved out of the page-load path and into activation.
+const bindShowreelAudio = (frame, toggle) => {
   if (toggle.dataset.bound === "1") {
     return;
   }
@@ -1152,6 +1193,37 @@ const initImagicoreShowreelAudio = () => {
   });
 
   syncLabel();
+};
+
+const initImagicoreShowreel = () => {
+  const wrap = document.querySelector(".showreel-embed-wrap");
+  if (!wrap || wrap.classList.contains("is-playing")) {
+    return;
+  }
+
+  const videoId = String(wrap.dataset.videoId || "").trim();
+  const toggle = wrap.querySelector(".showreel-audio-toggle");
+  if (!/^[\w-]{11}$/.test(videoId) || !toggle) {
+    return;
+  }
+
+  const consent = ensureYoutubeConsentButton(wrap, "ImagiCORE showreel bet\u00F6lt\u00E9se");
+
+  bindYoutubeConsent(consent, () => {
+    const frame = document.createElement("iframe");
+    frame.className = "showreel-embed";
+    // Same player options the markup used to ship; only the host has changed.
+    frame.src = `${YOUTUBE_EMBED_HOST}/embed/${encodeURIComponent(videoId)}?autoplay=1&mute=1&loop=1&playlist=${encodeURIComponent(videoId)}&controls=0&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&disablekb=1&enablejsapi=1`;
+    frame.title = "ImagiCORE showreel";
+    frame.allow = "autoplay; encrypted-media; picture-in-picture";
+    frame.referrerPolicy = "strict-origin-when-cross-origin";
+    frame.allowFullscreen = true;
+
+    wrap.insertBefore(frame, wrap.firstChild);
+    wrap.classList.add("is-playing");
+    consent.remove();
+    bindShowreelAudio(frame, toggle);
+  });
 };
 const initImagicoreStories = () => {
   const removePrevHandlers = () => {
@@ -2093,13 +2165,13 @@ const initLatestYoutubeWidgets = () => {
   let statusText = "Mindig a legfrissebb felt\u00F6lt\u00E9s a csatorn\u00E1r\u00F3l.";
 
   if (/^[\w-]{11}$/.test(latestVideoId)) {
-    embedSrc = `https://www.youtube.com/embed/${encodeURIComponent(latestVideoId)}?rel=0&modestbranding=1&playsinline=1`;
+    embedSrc = `${YOUTUBE_EMBED_HOST}/embed/${encodeURIComponent(latestVideoId)}?rel=0&modestbranding=1&playsinline=1&autoplay=1`;
     latestHref = `https://www.youtube.com/watch?v=${encodeURIComponent(latestVideoId)}`;
     statusText = "A legfrissebb publikus felt\u00F6lt\u00E9s a csatorn\u00E1r\u00F3l.";
   } else if (uploadsPlaylistId) {
-    embedSrc = `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(uploadsPlaylistId)}&rel=0&modestbranding=1&playsinline=1`;
+    embedSrc = `${YOUTUBE_EMBED_HOST}/embed/videoseries?list=${encodeURIComponent(uploadsPlaylistId)}&rel=0&modestbranding=1&playsinline=1&autoplay=1`;
   } else if (handle) {
-    embedSrc = `https://www.youtube.com/embed?listType=user_uploads&list=${encodeURIComponent(handle)}&rel=0&modestbranding=1&playsinline=1`;
+    embedSrc = `${YOUTUBE_EMBED_HOST}/embed?listType=user_uploads&list=${encodeURIComponent(handle)}&rel=0&modestbranding=1&playsinline=1&autoplay=1`;
   }
 
   if (!embedSrc) {
@@ -2110,7 +2182,6 @@ const initLatestYoutubeWidgets = () => {
     const frameWrap = widget.querySelector(".af-youtube-widget__frame-wrap");
     const status = widget.querySelector(".af-youtube-widget__status");
     const actionLink = widget.querySelector(".af-youtube-widget__header .btn");
-    const coverLink = frameWrap ? frameWrap.querySelector(".af-youtube-widget__cover-link") : null;
     if (!frameWrap) {
       return;
     }
@@ -2118,29 +2189,35 @@ const initLatestYoutubeWidgets = () => {
     if (actionLink) {
       actionLink.href = latestHref;
     }
-    if (coverLink) {
-      coverLink.href = latestHref;
-      coverLink.setAttribute("aria-label", "Legfrissebb YouTube vide\u00F3 megnyit\u00E1sa");
+
+    if (status) {
+      status.textContent = statusText;
     }
 
-    let frame = frameWrap.querySelector("iframe");
-    if (!frame) {
-      frameWrap.innerHTML = "";
-      frame = document.createElement("iframe");
+    // A player the visitor already asked for stays put across re-initialisation.
+    if (frameWrap.querySelector("iframe")) {
+      return;
+    }
+
+    const consent = ensureYoutubeConsentButton(frameWrap, "Legfrissebb YouTube vide\u00F3 bet\u00F6lt\u00E9se");
+
+    bindYoutubeConsent(consent, () => {
+      const frame = document.createElement("iframe");
       frame.id = widget.id ? `${widget.id}LatestVideoFrame` : `latestVideoFrame${index}`;
       frame.title = `${document.title} YouTube vide\u00F3k`;
       frame.loading = "lazy";
       frame.referrerPolicy = "strict-origin-when-cross-origin";
       frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
       frame.allowFullscreen = true;
+      frame.src = embedSrc;
+
+      const poster = frameWrap.querySelector(".af-youtube-widget__cover");
+      if (poster) {
+        poster.remove();
+      }
+      consent.remove();
       frameWrap.appendChild(frame);
-    }
-
-    frame.src = embedSrc;
-
-    if (status) {
-      status.textContent = statusText;
-    }
+    });
   });
 };
 
@@ -2170,7 +2247,7 @@ const initInlineYoutubeCards = () => {
     card.innerHTML = "";
 
     const frame = document.createElement("iframe");
-    frame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+    frame.src = `${YOUTUBE_EMBED_HOST}/embed/${encodeURIComponent(videoId)}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
     frame.title = videoTitle;
     frame.loading = "lazy";
     frame.referrerPolicy = "strict-origin-when-cross-origin";
@@ -2387,7 +2464,7 @@ initInlineYoutubeCards();
     initGenericParallax();
     initRandomBlobWander();
     initImagicoreForm();
-    initImagicoreShowreelAudio();
+    initImagicoreShowreel();
     initImagicoreStories();
     initCountUpMetrics();
     initImagicoreArtistSlot();

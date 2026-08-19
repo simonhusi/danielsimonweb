@@ -1629,3 +1629,31 @@ body.page-youtube.channel-page.arany-page.yt-copy.youtube-subpage.channel-ds-cop
     scroll-behavior: auto !important;
   }
 }
+
+/* The deferred-embed cover, in the channel pages' warm palette. */
+body.page-youtube.channel-page.arany-page.yt-copy.youtube-subpage .yt-consent {
+  background: linear-gradient(180deg, rgba(18, 16, 8, 0.62) 0%, rgba(7, 7, 6, 0.9) 100%);
+  color: var(--channel-ink);
+}
+
+body.page-youtube.channel-page.arany-page.yt-copy.youtube-subpage .yt-consent__play {
+  border-color: var(--channel-border);
+  background: rgba(17, 15, 10, 0.58);
+}
+
+body.page-youtube.channel-page.arany-page.yt-copy.youtube-subpage .yt-consent__play::before {
+  border-left-color: var(--channel-accent-strong);
+}
+
+body.page-youtube.channel-page.arany-page.yt-copy.youtube-subpage .yt-consent__note {
+  color: var(--channel-ink-soft);
+}
+
+body.page-youtube.channel-page.arany-page.yt-copy.youtube-subpage .yt-consent:hover .yt-consent__play,
+body.page-youtube.channel-page.arany-page.yt-copy.youtube-subpage .yt-consent:focus-visible .yt-consent__play {
+  border-color: var(--channel-border-strong);
+}
+
+body.page-youtube.channel-page.arany-page.yt-copy.youtube-subpage .yt-consent:focus-visible {
+  outline-color: var(--channel-accent);
+}
