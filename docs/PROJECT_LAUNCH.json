@@ -1,0 +1,10 @@
+{
+  "schema": "project-launch/1",
+  "targets": {
+    "dev": {
+      "name": "danielsimon.hu dev server",
+      "command": "node",
+      "args": ["tools/dev-server.mjs"]
+    }
+  }
+}

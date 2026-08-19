@@ -1,0 +1,10 @@
+{
+  "schema": "dev-endpoints/1",
+  "block": 20408,
+  "endpoints": {
+    "dev": {
+      "name": "danielsimon.hu static dev server",
+      "port": 20408
+    }
+  }
+}
